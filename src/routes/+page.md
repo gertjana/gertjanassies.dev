@@ -1,7 +1,6 @@
 # Home page
 
-This is my personal space, to talk about technology, coding and the maker space
-
+This is my personal space where I talk about technology, coding, the maker space and anything else that interests me
 
 
 ## todo
@@ -9,10 +8,13 @@ This is my personal space, to talk about technology, coding and the maker space
 * ~~render markdown~~
 * ~~slug based routes for blogs~~
 * ~~bug: syntax highligting~~
-* metadata at top of markdown files
-* List of blogs
-* divide into Make and Code
-* dark/light themeß
+* ~~metadata (frontmatter) at top of markdown files~~
+* ~~List of blogs~~
+* sort blog list on date desc
+* ~~divide into Make and Code~~ ~~list for tags~~
+* ~~support categories~~
+* Pinned blogs on homepage
+* dark/light theme
 
 
 ```elixir

@@ -4,6 +4,8 @@ date: "2023-06-22"
 author: Gertjan Assies
 summary: This is a test
 tags: test
+category: QA
+image: ""
 
 ---
 

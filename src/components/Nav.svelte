@@ -2,16 +2,20 @@
 </script>
 
 <div class="left">
-    <img src="/logo_ga.svg" alt="logo" height="60">
+    <a href="/">
+        <img src="/logo_ga.svg" alt="logo" height="60">
+    </a>
     <h2>gertjan.assies.dev</h2><br/>
     <sub>ramblings of a chaotic mind</sub>
 </div>
+    <!-- Theme<ThemeSwitch /> -->
 <div class="right">
     <nav>
-        <a href="/">home</a>
-        <a href="/make">make</a>
-        <a href="/code">code</a>
-        <a href="/about">about</a>
+        <a data-sveltekit-reload href="/">home</a>
+        <a data-sveltekit-reload href="/blog">blog</a>
+        <a data-sveltekit-reload href="/blog?category=code">code</a>
+        <a data-sveltekit-reload href="/blog?category=make">make</a>
+        <a data-sveltekit-reload href="/about">about</a>
     </nav>
 </div>
 <br style="clear: both;"/>

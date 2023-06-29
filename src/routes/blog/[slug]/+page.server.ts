@@ -6,9 +6,13 @@ import { compile } from 'mdsvex'
 export function load({ params }) {
     let slug = params.slug;
     // TODO handle not found
-    let content = fs.readFileSync(`${process.cwd()}/blogs/${params.slug}.md`, 'utf-8')   
-    // compile(content).then(compiled => { console.log(compiled?.data?.fm) });
-    return { 
-        content: compile(content),
-    };    
+    try {
+        let content = fs.readFileSync(`${process.cwd()}/blogs/${params.slug}.md`, 'utf-8')   
+        return { 
+            content: compile(content),
+        };    
+    }
+    catch (e) {
+        throw error(404, { message: `Not found`});
+    }
 }

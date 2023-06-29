@@ -36,4 +36,9 @@
         text-transform: uppercase;
         margin-right: 0.5em;
     }
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
 </style>

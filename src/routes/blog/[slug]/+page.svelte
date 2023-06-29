@@ -62,10 +62,10 @@
     sub.date {
         float: right;
     }
-
     img {
         float:right;
-        width:400px;
+        width:25%;
         margin-left: 2em;
+
     }
 </style>

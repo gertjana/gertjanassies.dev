@@ -44,7 +44,7 @@
     }
 
     :global(blockquote) {
-      border-left: 4px solid var(--accent-2);
+      border-left: 2px solid var(--accent-2);
       padding-left: 1em;
       margin-left: 1em;
     }
@@ -56,6 +56,7 @@
       justify-content: space-between;
       margin: 1em;
       padding-left: 1em;
+      padding-top: 2em;
       max-width: 90%;
     }
 
@@ -63,5 +64,7 @@
       font-family: RedHatText;
       font-weight: 400;
       margin: 0;
+      border-bottom: 1px solid var(--accent);
+      width: 73%;
     }
   </style>

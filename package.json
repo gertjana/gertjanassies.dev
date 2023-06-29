@@ -22,6 +22,7 @@
   "type": "module",
   "dependencies": {
     "mdsvex-relative-images": "^1.0.3",
+    "medium-to-markdown": "^0.0.3",
     "svelte-markdown": "^0.2.3"
   }
 }

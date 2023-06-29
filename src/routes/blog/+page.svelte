@@ -5,7 +5,7 @@
     export let data;
 
     const allPostsFiles = import.meta.glob(`/blogs/*.md`);
-    const iterable = Object.entries(allPostsFiles);
+    const iterable = Object.entries(allPostsFiles).reverse();
 
     const allPosts = Promise.all(
         iterable.map(async ([path, page]) => {

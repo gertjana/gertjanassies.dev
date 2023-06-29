@@ -20,7 +20,6 @@
     const perTag = (postsPromise, tag) => {
         return postsPromise.then(posts =>
             posts.filter(post => {
-            console.log(post);
             if (post.meta.tags == undefined || post.meta.tag == "") return false; 
             return post.meta.tags.indexOf(tag) != -1
         })); 

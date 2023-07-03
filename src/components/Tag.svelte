@@ -10,7 +10,7 @@
 {#if type == 'category'}
     <span class="category" property="{text}"><a data-sveltekit-reload href="{path}?category={text}">{text}</a></span>
 {:else}
-    <span class="tag" property="text"><a data-sveltekit-reload href="{path}?tag={text}">{text}</a></span>
+    <span class="tag" property="{text}"><a data-sveltekit-reload href="{path}?tag={text}">{text}</a></span>
 {/if}
 
 <style lang="scss">

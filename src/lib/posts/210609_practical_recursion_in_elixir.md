@@ -1,4 +1,3 @@
-
 ---
 title: Practical recursion in Elixir
 date: "2021-06-09"

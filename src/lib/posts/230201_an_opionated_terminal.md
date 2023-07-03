@@ -30,7 +30,7 @@ This is the [Powerline Hack font](https://github.com/powerline/fonts) but enhanc
 Now for the Terminal itself, I like [Iterm2](https://iterm2.com) for its configurability and the fact that it can have a screen slide down from the top, much like the terminal in Quake.
 
 After installing, I go to the profiles sections and add a new profile, where I select “Full width, top of the screen in windows -> Style and enable a hotkey (in my case double-tap ctrl)  
-And in both profiles, I set the font to ‘hack nerd font mono' and change the dark blue colour to a lighter one, as the darker one is hardly readable on a block background
+And in both profiles, I set the font to 'hack nerd font mono' and change the dark blue colour to a lighter one, as the darker one is hardly readable on a block background
 
 Now for the shell, I like [fish](https://fishshell.com) and by installing the [oh-my-fish](https://github.com/oh-my-fish/oh-my-fish) framework I can then add the [agnoster](https://github.com/oh-my-fish/theme-agnoster) theme.
 
@@ -87,7 +87,7 @@ end
 
 In the end it looks like this:
 
-<img alt="terminal screenshot" src="/images/an_opinionated_terminal_1.png" style="width:1000px;" />
+![terminal screenshot](/images/an_opinionated_terminal_1.png)
 
 Hopefully I showed you some things, that might make your commandline experience a bit more pleasurable.
 

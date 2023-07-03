@@ -1,6 +1,4 @@
-
 ---
-
 title: TOTP Exercise
 author: Gertjan Assies
 date: "2021-06-10"

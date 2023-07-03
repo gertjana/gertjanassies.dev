@@ -52,6 +52,12 @@ This is my personal space where I talk about technology, coding, the maker space
 
 ```
 
-## What's not to love
+## What's to (or not to) love
 
-As with all javascript/typescript frameworks, it all too quickly becomes a bit of a mess, I wanted all the scripting done with TypeScript, but mdsvex does not support that, so I ended up with a mix of javascript and typescript with types defined in comments, and something typescript error's ignored just to get stuff working.
+As with most javascript/typescript frameworks, it can all too quickly becomes a bit of a mess, although during the work I learned more and more at how it all works, so I revisited working but somewhat crappy code multiple times.
+
+So lets categorize that as a steep learning curve and my tendency to just start assembling the swedish furniture instead of reading the manual first.
+
+I think with the modular (components) setup, thought out defaults, and ability to run the component's code on the server or client (or both) makes it very powerful and flexible.
+
+Vite making developing a pleasure with it's almost instantly refreshing pages everytime you press save. and Typescript making sure you're component properties/attributes can only hold the right stuff.

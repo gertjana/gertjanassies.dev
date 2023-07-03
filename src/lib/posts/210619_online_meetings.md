@@ -1,4 +1,3 @@
-
 ---
 title: All those online meetings - part 1
 author: Gertjan Assies
@@ -12,7 +11,7 @@ Now, what if I could add a couple of buttons to the Pico to make those tasks a l
 
 ---
 
-_or how to find an excuse to play with a Raspberry Pico_
+_Or how to find an excuse to play with a Raspberry Pico._
 
 While on a not particularly interesting online meeting, my eye fell on the [Raspberry Pico](https://www.raspberrypi.org/products/raspberry-pi-pico/) that I ordered and had just arrived that morning.  
 After more than a year working from home, I got into the habit to mute my audio when I'm not speaking and in large meetings or perceived bandwidth issues, I disable my video. enabling both again when I need to speak.
@@ -47,7 +46,6 @@ For the second batch, I'm trying out [Aisler](https://aisler.net/), which origin
 To program the Pico with Micropython, it always consists of resetting it with the bootsel button pressed which will make it show up as a removable drive on your system then copy/drag over the necessary files and that it, details are in the adafruit tutorial I've linked above and in the references.
 
 ## Software
-
 
 All the software, design files can be found here:  
 [https://gitlab.com/gertjana/conference-buttons](https://gitlab.com/gertjana/conference-buttons)

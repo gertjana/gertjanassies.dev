@@ -2,7 +2,7 @@
 title: SSH - too many authentication failures
 date: "2021-10-29"
 author: Gertjan Assies
-tags: tips, SSH, featured
+tags: tips, SSH
 category: tooling
 image: "/images/sorry_were_closed.jpg"
 summary: "One morning I tried to login into a remote system using ssh and suddenly I got the above error. 

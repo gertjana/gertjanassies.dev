@@ -4,7 +4,7 @@ title: Practical recursion in Elixir
 date: "2021-06-09"
 author: Gertjan Assies
 category: code
-tags: elixir, recursion, featured
+tags: elixir, recursion
 image: "/images/practical_recursion_top.jpg"
 summary: Explaining recursion with a very practical use case
 

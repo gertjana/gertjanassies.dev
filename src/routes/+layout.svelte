@@ -53,6 +53,30 @@
       margin-left: 1em;
     }
 
+    :global(table) {
+      border-spacing: 0;
+      border-collapse: collapse;
+      border-bottom: 1px solid var(--accent-3);
+    }
+    :global(th) {
+      border-left: 1px solid var(--accent-3);
+      padding-left: 0.5em;
+      padding-right: 0.5em;
+      margin: 0em;
+      background-color: #ccc;
+    }
+    :global(td) {
+      border-left: 1px solid var(--accent-3);
+      padding-left: 0.5em;
+      padding-right: 0.5em;
+      margin: 0em;
+    }
+
+    :global(td:last-child, th:last-child) {
+      border-right: 1px solid var(--accent-3);
+    }
+
+
     div.content {
       border-left: 1px solid var(--accent);
       display: flex;

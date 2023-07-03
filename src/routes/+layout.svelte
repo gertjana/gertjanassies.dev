@@ -2,15 +2,11 @@
     import Nav from '$src/components/Nav.svelte';
     import Footer from '$src/components/Footer.svelte';
     import { fade } from 'svelte/transition';
-    import { page } from '$app/stores';
-    // import { theme } from '$app/stores';
 
   </script>
   
   <svelte:head>
     <title>gertjan.assies.dev</title> 
-    <!-- <meta name="color-scheme" content={$theme == 'system' ? 'light dark' : $theme}> -->
-    <!-- <link rel="stylesheet" href={`/theme/${$theme}.css`} /> -->
   </svelte:head>
   
   <Nav />
@@ -25,9 +21,8 @@
 
   <style lang="scss">
     @import "$src/styles/prism-one-light.css";
-    @import "$src/styles/color-palette.scss";
-    @import "$src/styles/media-queries.scss";
-    @import "$src/styles/typography.scss";
+    @import "$src/styles/color-palette.css";
+    @import "$src/styles/typography.css";
   
     :global(html) {
       scroll-behavior: smooth;
@@ -64,7 +59,5 @@
       font-family: RedHatText;
       font-weight: 400;
       margin: 0;
-      border-bottom: 1px solid var(--accent);
-      width: 73%;
     }
   </style>

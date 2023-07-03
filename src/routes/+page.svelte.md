@@ -1,5 +1,9 @@
-<script>
-  import Posts from '$src/components/Posts.svelte';
+<script lang="ts">
+    import Posts from '$src/components/Posts.svelte';
+    import type { PageData } from './$types';
+    export let data: PageData;
+
+    let posts = data.posts //.filter(post => {
 </script>
 
 # Home page
@@ -8,7 +12,7 @@ This is my personal space where I talk about technology, coding, the maker space
 
 ## Featured blogs
 
-<Posts tag="featured" size=3 />
+<Posts posts={data.posts} size="3" tag="featured" />
 
 ## todo
 
@@ -21,22 +25,6 @@ This is my personal space where I talk about technology, coding, the maker space
 * ~~divide into Make and Code~~ ~~list for tags~~
 * ~~support categories~~
 * ~~Pinned blogs on homepage~~
+* ~~bug: running in node gives an error~~
+* pagination
 * dark/light theme
-
-
-```elixir
-defmodule Fib do 
-  def fib(0) do 0 end
-  def fib(1) do 1 end
-  def fib(n) do fib(n-1) + fib(n-2) end
-end
-
-IO.puts Fib.fib(10)
-```
-
-<style lang="scss">
-  h2 {
-    border-bottom: 1px solid var(--accent);
-    margin-bottom: 10em;
-  }
-</style>

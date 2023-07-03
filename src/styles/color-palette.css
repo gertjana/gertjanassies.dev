@@ -1,0 +1,14 @@
+:root {
+    --accent: #01c0f0;
+    --accent-1: #ff0099;
+    --accent-2: #b45eff;
+    --accent-3: #01c0f0;
+    --accent-4: #1de691;
+  
+    --links: steelblue;
+    --info: #35c9fa;
+    --success: #88ff88;
+    --warning: #ece715;
+    --error: #f80363;
+    --misc: #b45eff;
+  } 

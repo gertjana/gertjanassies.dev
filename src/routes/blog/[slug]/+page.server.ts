@@ -1,18 +1,18 @@
-import { error } from '@sveltejs/kit';
-import fs from 'fs';
-import { compile } from 'mdsvex'
+    import { posts } from '$lib/server/posts';
+    import { error } from '@sveltejs/kit';
+    import type { PageServerLoad } from './$types';
 
-/** @type {import('./$types').PageServerLoad} */
-export function load({ params }) {
-    let slug = params.slug;
-    // TODO handle not found
-    try {
-        let content = fs.readFileSync(`${process.cwd()}/blogs/${params.slug}.md`, 'utf-8')   
-        return { 
-            content: compile(content),
-        };    
-    }
-    catch (e) {
-        throw error(404, { message: `Not found`});
-    }
-}
+    export const load: PageServerLoad = async ({ params }) => {
+        const { slug } = params;
+
+        // get post with metadata
+        const post = posts.find((post) => slug === post.slug);
+
+        if (!post) {
+            throw error(404, 'Post not found');
+        }
+
+        return {
+            post,
+        };
+    };

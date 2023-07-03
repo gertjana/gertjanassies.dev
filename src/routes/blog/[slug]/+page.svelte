@@ -1,36 +1,30 @@
-<script>
-// @ts-nocheck
+<script lang="ts">
     import Tag from '$src/components/Tag.svelte';
     import TagBar from '$src/components/TagBar.svelte';
-    /** @type {import('./$types').PageData} */
-    export let data;
+    
+    import type { PageData } from './$types';
 
-    /** @type { (arg0: string) => string } */
-    const u = (x) => { if (x == undefined) return ""; else return x;}
+    export let data: PageData;
+
+    // /** @type { (arg0: string) => string } */
+    const u = (x: string) => { if (x == undefined) return ""; else return x;}
 
 </script>
 
-{#await data.content}
-    <div>loading...</div>
-{:then content}
-    <h1>{content?.data?.fm?.title}</h1>
-    <div class="tags">
-        <TagBar path="/blog" tags="{content?.data?.fm?.tags}" category="{content?.data?.fm?.category}" />
-    </div>
-    <div class="content">
-        <sub class="date">on {u(content?.data?.fm?.date)}</sub>
-        <sub class="author">by {u(content?.data?.fm?.author)}</sub>    
-    </div>
-    <br/>
-    {#if content?.data?.fm?.image}
-        <img src="{content?.data?.fm?.image}" alt="{content?.data?.fm?.title}"/>
-    {/if}
-    {@html content?.code
-                .replaceAll(/\@html /g, '')
-                .replaceAll(/\{\`/g, '')
-                .replaceAll(/\`\}/g, '')
-    }    
-{/await}
+<h1>{data.post.title}</h1>
+<div class="tags">
+    <TagBar path="/blog" tags="{data.post.tags}" category="{data.post.category}" />
+</div>
+<div class="content">
+    <sub class="date">on {u(data.post.date)}</sub>
+    <sub class="author">by {u(data.post.author)}</sub>    
+</div>
+<br/>
+{#if data.post.image}
+    <img src="{data.post.image}" alt="{data.post.title}"/>
+{/if}
+
+<svelte:component this={data.component} />
 
 <style>
     div.content {

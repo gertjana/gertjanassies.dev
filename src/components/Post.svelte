@@ -1,25 +1,22 @@
-<script>
+<script lang="ts">
     import TagBar from "./TagBar.svelte";
 
-    //TODO make meta a proper type describing the frontmatter
-    /** @type {{ meta: any, path: string }} */
-    export let post;
+        export let post: { title: string, summary: string, date: string, author: string, tags: string, category: string, image: string, slug: string};
 
-    /** @type { (arg0: string) => string } */
-    const u = (x) => { if (x == undefined) return ""; else return x;}
+    const u = (x: string) => { if (x == undefined) return ""; else return x;}
 </script>
 
 <div class="post">
-    <h3><a href="/blog/{post.path}">{post.meta.title}</a></h3>
+    <h3><a href="/blog/{post.slug}">{post.title}</a></h3>
     <div class="tags">
-        <TagBar path="/blog" tags="{post.meta.tags}" category="{post.meta.category}" />
+        <TagBar path="/blog" tags="{post.tags}" category="{post.category}" />
     </div>
     <div class="content">
-        {#if post.meta.image}
-            <img src="{post.meta.image}" alt={post.meta.title}/>
+        {#if post.image}
+            <img src="{post.image}" alt={post.title}/>
         {/if}
-        <sub>by {u(post.meta.author)} on {u(post.meta.date)}</sub>
-        <p>{u(post.meta.summary)}</p>
+        <sub>by {u(post.author)} on {u(post.date)}</sub>
+        <p>{u(post.summary)}</p>
     </div>
 </div>
 
@@ -29,7 +26,6 @@
     }
     h3 {
         display: inline;
-        border: none !important;
     }
 
     div.post {

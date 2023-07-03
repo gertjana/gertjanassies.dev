@@ -1,57 +1,28 @@
-<script>
+<script lang="ts">
     import Post from '$src/components/Post.svelte';
+    import type { PageData } from './$types';
 
-    /** @type {import('./$types').PageData} */
-    export let data;
-
-    const allPostsFiles = import.meta.glob(`/blogs/*.md`);
-    const iterable = Object.entries(allPostsFiles).reverse();
-
-    const allPosts = Promise.all(
-        iterable.map(async ([path, page]) => {
-            const { metadata } = await page();
-            const postPath = path.replace(/^\/blogs\/(.*)\.md$/, '$1');
-            return {
-                meta: metadata,
-                path: postPath
-            };
-    }));
-
-    const perTag = (postsPromise, tag) => {
-        return postsPromise.then(posts =>
-            posts.filter(post => {
-            if (post.meta.tags == undefined || post.meta.tag == "") return false; 
-            return post.meta.tags.indexOf(tag) != -1
-        })); 
-    }
-
-    const perCategory = (postsPromise, category) => {
-        return postsPromise.then(posts =>
-            posts.filter(post => {
-                if (post.meta.category == undefined || post.meta.category == "") return false;
-            return post.meta.category == category;
-        }));
-    }
+    export let data: PageData;
 
     const tag = data.tag;
     const category = data.category;
 
-    let postsPromise = allPosts;   
+    let posts = data.posts;   
+
     if (tag != undefined) {
-        postsPromise = perTag(allPosts, tag)
+        posts = posts.filter(post => {
+            if (post.tags == undefined || post.tags == "") return false; 
+            return post.tags.indexOf(tag) != -1
+        });
     } else if (category != undefined) {
-        postsPromise = perCategory(allPosts, category)
-    } 
+        posts = posts.filter(post => {
+            if (post.category == undefined || post.category == "") return false;
+            return post.category == category;
+        });
+    }
 
 </script>
 
-{#await postsPromise}
-    <p>...</p>
-{:then posts} 
-    {#each posts as post}
-        <Post post="{post}" />
-    {/each}
-{:catch error}
-    <p>Oopsie: {error}</p>    
-{/await}
-
+{#each posts as post}
+    <Post post="{post}" />
+{/each}

@@ -1,49 +1,24 @@
-<script>
+<script lang="ts">
     import Post from '$src/components/Post.svelte';
-    import { construct_svelte_component } from 'svelte/internal';
 
-    /** @type { string } */
-    export let tag;
+    export let posts: {title: string, summary: string, date: string, author: string, tags: string, category: string, image: string, slug: string}[];
 
-    /** @type { number } */
-    export let size;
+    export let tag : string;
 
-    const allPostsFiles = import.meta.glob(`/blogs/*.md`);
-    const iterable = Object.entries(allPostsFiles).reverse();
+    export let size: number;
 
-    const allPosts = Promise.all(
-        iterable
-            .map(async ([path, page]) => {
-                const { metadata } = await page();
-                const postPath = path.replace(/^\/blogs\/(.*)\.md$/, '$1');
-                return {
-                    meta: metadata,
-                    path: postPath
-                };
-            })
-        );
-
-    const perTag = (postsPromise, tag) => {
-        return postsPromise.then(posts =>
-            posts.filter(post => {
-            if (post.meta.tags == undefined || post.meta.tag == "") return false; 
-            return post.meta.tags.indexOf(tag) != -1
-        })); 
+    if (tag != undefined) {
+        posts = posts.filter(post => {
+            if (post.tags == undefined || post.tags == "") return false; 
+            return post.tags.indexOf(tag) != -1
+        });
     }
-    // console.log(tag, size)
-    let postsPromise = perTag(allPosts, tag);
 </script>
 
 <div class="posts">
-    {#await postsPromise }
-        ... 
-    {:then posts }
-        {#each posts.slice(0, size) as post}
-            <Post post="{post}" />
-        {/each}
-    {:catch error}
-        <p>{error}</p>
-    {/await}
+    {#each posts.slice(0, size) as post}
+        <Post post="{post}" />
+    {/each}
 </div>
 
 <style lang="scss">

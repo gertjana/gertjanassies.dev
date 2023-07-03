@@ -2,7 +2,7 @@
 title: An opinionated terminal experience
 author: Gertjan Assies
 date: "2023-02-01"
-tags: terminal, fish, iterm2
+tags: terminal, fish, iterm2, featured
 category: tooling
 image: "/images/an_opinionated_terminal_top.jpg"
 summary: "How I setup my terminal"

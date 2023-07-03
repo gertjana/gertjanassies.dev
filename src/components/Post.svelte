@@ -6,19 +6,19 @@
     const u = (x: string) => { if (x == undefined) return ""; else return x;}
 </script>
 
-<div class="post">
+<article class="post">
     <h3><a href="/blog/{post.slug}">{post.title}</a></h3>
-    <div class="tags">
+    <section class="tags">
         <TagBar path="/blog" tags="{post.tags}" category="{post.category}" />
-    </div>
-    <div class="content">
+    </section>
+    <section class="content">
         {#if post.image}
             <img src="{post.image}" alt={post.title}/>
         {/if}
         <sub>by {u(post.author)} on {u(post.date)}</sub>
         <p>{u(post.summary)}</p>
-    </div>
-</div>
+    </section>
+</article>
 
 <style lang="scss">
     p {
@@ -28,18 +28,18 @@
         display: inline;
     }
 
-    div.post {
+    article.post {
         min-height: 150px;
         margin-bottom: 3em;
         clear:both;
     }
-    div.tags {
+    section.tags {
         display:block;
         float:right;
         margin-bottom: 0.0em;
     }
 
-    div.content {
+    section.content {
         margin-top: 0.25em;
         width: 100%;
         border-top: 1px solid var(--accent-4);

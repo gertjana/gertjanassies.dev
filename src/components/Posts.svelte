@@ -5,9 +5,16 @@
 
     export let tag : string;
 
+    export let category: string;
+    
     export let size: number;
 
-    if (tag != undefined) {
+    if (category != undefined && category != "") {
+        posts = posts.filter(post => {
+            if (post.category == undefined || post.category == "") return false;
+            return post.category == category;
+        });
+    } else if (tag != undefined && tag != "all") {
         posts = posts.filter(post => {
             if (post.tags == undefined || post.tags == "") return false; 
             return post.tags.indexOf(tag) != -1
@@ -15,14 +22,14 @@
     }
 </script>
 
-<div class="posts">
+<article class="posts">
     {#each posts.slice(0, size) as post}
         <Post post="{post}" />
     {/each}
-</div>
+</article>
 
 <style lang="scss">
-    div.posts {
+    article.posts {
         margin-top: 1em;
     }
 </style>

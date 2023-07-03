@@ -7,6 +7,15 @@
   
   <svelte:head>
     <title>gertjan.assies.dev</title> 
+    <meta name="description" content="Gertjan Assies personal blog" />
+    <meta name="keywords" content="Gertjan Assies, blog, personal, code, make, technology, programming, maker, 3dprint" />
+    <meta name="author" content="Gertjan Assies" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content="gertjanassies.dev" />
+    <meta property="og:description" content="Gertjan Assies personal blog" />
+    <meta property="og:image" content="https://gertjanassies.dev/logo_ga.svg" />
+    <meta property="og:url" content="https://gertjanassies.dev" />
+    <meta name="robots" content="index, follow, archive" />
   </svelte:head>
   
   <Nav />

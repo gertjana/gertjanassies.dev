@@ -5,7 +5,7 @@
     <a href="/">
         <img src="/logo_ga.svg" alt="logo" height="60">
     </a>
-    <h2>gertjan.assies.dev</h2><br/>
+    <h2>gertjanassies.dev</h2><br/>
     <sub>ramblings of a chaotic mind</sub>
 </div>
     <!-- Theme<ThemeSwitch /> -->
@@ -23,7 +23,8 @@
 <style lang="scss">
     div.left {
         float: left;
-        border-bottom: 1px solid var(--accent-2)
+        border-bottom: 1px solid var(--accent-2);
+        width: 400px;
     }
     div.right {
         float: right;

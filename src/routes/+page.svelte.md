@@ -3,7 +3,7 @@
     import type { PageData } from './$types';
     export let data: PageData;
 
-    let posts = data.posts //.filter(post => {
+    let posts = data.posts
 </script>
 
 # Home page

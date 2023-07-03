@@ -5,4 +5,4 @@
     export let data: PageData;
 </script>
 
-<Posts posts="{data.posts}" size="{data.posts.length}" tag="{data.tag || 'all'}" category="{data.category || ''}" />
+<Posts metadata="{data.posts}" size="{data.posts.length}" tag="{data.tag || 'all'}" category="{data.category || ''}" />

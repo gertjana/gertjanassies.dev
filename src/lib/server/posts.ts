@@ -1,11 +1,11 @@
     import { parse } from 'path';
 
     type GlobEntry = {
-        metadata: Post;
+        metadata: MetaData;
         default: unknown;
     };
 
-    export interface Post {
+    export type MetaData = {
         title: string;
         summary: string;
         date: string;
@@ -13,6 +13,7 @@
         tags: string;
         category: string;
         image: string;
+        slug: string;
     }
 
     // Get all posts and add metadata

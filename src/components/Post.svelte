@@ -1,22 +1,23 @@
 <script lang="ts">
     import TagBar from "./TagBar.svelte";
+    import type { MetaData } from "$lib/server/posts";
 
-        export let post: { title: string, summary: string, date: string, author: string, tags: string, category: string, image: string, slug: string};
+    export let metadata: MetaData;
 
     const u = (x: string) => { if (x == undefined) return ""; else return x;}
 </script>
 
 <article class="post">
-    <h3><a href="/blog/{post.slug}">{post.title}</a></h3>
+    <h3><a href="/blog/{metadata.slug}">{metadata.title}</a></h3>
     <section class="tags">
-        <TagBar path="/blog" tags="{post.tags}" category="{post.category}" />
+        <TagBar path="/blog" tags="{metadata.tags}" category="{metadata.category}" />
     </section>
     <section class="content">
-        {#if post.image}
-            <img src="{post.image}" alt={post.title}/>
+        {#if metadata.image}
+            <img src="{metadata.image}" alt={metadata.title}/>
         {/if}
-        <sub>by {u(post.author)} on {u(post.date)}</sub>
-        <p>{u(post.summary)}</p>
+        <sub>by {u(metadata.author)} on {u(metadata.date)}</sub>
+        <p>{u(metadata.summary)}</p>
     </section>
 </article>
 

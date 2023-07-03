@@ -48,10 +48,13 @@ func hello(c echo.Context) error {
 ## Build a normal docker container for your app
 
 ```docker
-FROM golang:1.16RUN mkdir -p /app  
+FROM golang:1.16
+RUN mkdir -p /app  
 COPY main.go /app  
 COPY go.\* /app  
-WORKDIR /appRUN CGO\_ENABLED=0 GOOS=linux go build -o service main.goEXPOSE 8000  
+WORKDIR /app
+RUN CGO\_ENABLED=0 GOOS=linux go build -o service main.go
+EXPOSE 8000  
 CMD \["/app/service"\]
 ```
 
@@ -64,10 +67,17 @@ To set a baseline, I'm just creating a docker image from the golang:1.16 base-im
 ```docker
 FROM golang:1.16 AS builderCOPY main.go /app  
 COPY go.\* /app  
-WORKDIR /appRUN CGO\_ENABLED=0 GOOS=linux go build -o dist/service main.goADD https://github.com/krallin/tini/releases/download/v0.19.0/tini-static /tini  
-RUN chmod +x /tiniFROM scratchCOPY --from=builder /app/dist/service /service  
-COPY --from=builder /tini /tiniEXPOSE 8000ENTRYPOINT \["/tini", "--"\]  
-CMD \["/service"\]
+WORKDIR /app
+RUN CGO\_ENABLED=0 GOOS=linux go build -o dist/service main.go
+ADD https://github.com/krallin/tini/releases/download/v0.19.0/tini-static /tini  
+RUN chmod +x /tini
+
+FROM scratch
+COPY --from=builder /app/dist/service /service  
+COPY --from=builder /tini /tini
+EXPOSE 8000
+ENTRYPOINT ["/tini", "--"]  
+CMD ["/service"]
 ```
 
 Here I'm doing a multistage build, still using the Golang image to build the application but then in the second stage, I copy over the compiled application to a base image called scratch.  
@@ -137,7 +147,7 @@ I used the following to determine the image sizes:
 * [https://echo.labstack.com/](https://echo.labstack.com/)  
     minimalistic high-performance web framework
 * [https://github.com/krallin/tini](https://github.com/krallin/tini)  
-    a small but valid init system
+    a small but valid ini t system
 * [https://upx.github.io/](https://upx.github.io/)  
     a free, portable, extendable, high-performance executable packer
 

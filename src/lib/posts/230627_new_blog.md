@@ -22,9 +22,6 @@ so what is [Sveltekit](https://kit.svelte.dev/)? (from the website)
 Sveltekit uses [Svelte](https://svelte.dev/) an UI framework and [vite](https://vitejs.dev/), frontend tooling to help develop/run locally, with automatic reloading and caching for fast development.
 and takes most of the configuration and routing away
 
-
-
-
 ## Markdown
 
 Thanks to the [mdsvex](https://mdsvex.pngwn.io/) pre-processer, I can keep writing my blogs and most pages in markdown where it is possible to embed Svelte Components in your markdown, for more interactivity

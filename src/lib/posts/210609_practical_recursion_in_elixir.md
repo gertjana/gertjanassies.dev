@@ -19,14 +19,13 @@ Now to help keep track, I wrote a small command-line tool, that allows me to ent
 
 Linear trend analysis takes the average change between measurements and then apply that average to a future value. In formula form this is
 
-<img alt="Formula 1" src="/images/practical_recursion_formula1.gif" style="width:500px;" />
+![Formula 1](/images/practical_recursion_formula1.gif)
 
 or .. the average of all the previous points (0 to n) is equal to the average of the last value (n) and the future value (x) divided by the number of days from the last value to that future date.
 
 so what we need is a recursive function that does this part:
 
-<img alt="Formula 2" src="/images/practical_recursion_formula2.gif" style="width:500px;" />
-
+![Formula 2](/images/practical_recursion_formula2.gif)
 
 I store it as a JSON data structure, so a simple map with dates and km values
 

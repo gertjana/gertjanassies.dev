@@ -13,7 +13,7 @@ TOTP stands for [Time-based One Time Password](https://en.wikipedia.org/wiki/Tim
 
 for obvious security reasons, I have set up MFA on all accounts that support it. but this can be a bit cumbersome in some situations.
 
-Especially when you are working with Serverless applications on AWS. I work a lot with Cloudformation and SAM but that does mean that during the day I’ll be typing in MFA codes a lot.
+Especially when you are working with Serverless applications on AWS. I work a lot with Cloudformation and SAM but that does mean that during the day I'll be typing in MFA codes a lot.
 
 As an exercise, I wanted to see if I could get those codes visible without having to resort to the Google Authenticator app.
 
@@ -55,7 +55,7 @@ print(totp.now())
 
 This will when you give it a secret return the 6 digit code
 
-To not have the secret in my scripts I’ve added it to the keychain with
+To not have the secret in my scripts I've added it to the keychain with
 
 ```sh
 security add-generic-password -a \[account\] -s totp-exercise -w \[secret\]
@@ -83,14 +83,14 @@ return "{\\"text\\":\\"" & code & "\\"}"
 
 when pressed it gets the latest code again but now put the code on the clipboard
 
-```
+```applescript
 set code to do shell script "/Users/\[account\]/btt\_scripts/code\_aws.sh"  
 set the clipboard to code as text
 ```
 
-To conclude with the pytotp library it is trivial to build your own ‘google authenticator application.
+To conclude with the pytotp library it is trivial to build your own google authenticator application.
 
-Now that I’ve “proofed the concept” I will remove it again!
+Now that I've "proofed the concept" I will remove it again!
 
-And focus on getting this to run on an embedded device, for instance on an [M5 Stack](https://m5stack.com/) which has an ESP32 controller and a screen. although this will probably mean I have to port the python library to C, as I haven’t found any libraries that work with the AWS secret, just some abandoned projects that tried to do the same.  
-But that’s another story
+And focus on getting this to run on an embedded device, for instance on an [M5 Stack](https://m5stack.com/) which has an ESP32 controller and a screen. although this will probably mean I have to port the python library to C, as I haven't found any libraries that work with the AWS secret, just some abandoned projects that tried to do the same.  
+But that's another story

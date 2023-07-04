@@ -5,10 +5,8 @@ date: "2023-02-01"
 tags: terminal, fish, iterm2, featured
 category: tooling
 image: "/images/an_opinionated_terminal_top.jpg"
-summary: "How I setup my terminal"
+summary: "As a Site Reliability / Software Engineer I'm a bit opinionated when it comes to the tool I use most of the time: The command line."
 ---
-
-As a Site Reliability / Software Engineer I'm a bit opinionated when it comes to the tool I use most of the time: The command line.
 
 As I got a new work laptop (Macbook Pro M1) recently, I've recorded the steps I did to get it to behave as I want, and hopefully, be a little bit more productive. (I'm very aware of the delicate balance between spending time on being more productive and actually being productive)
 

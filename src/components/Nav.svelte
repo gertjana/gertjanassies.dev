@@ -15,6 +15,7 @@
         <a data-sveltekit-reload href="/blog">blog</a>
         <a data-sveltekit-reload href="/blog?category=code">code</a>
         <a data-sveltekit-reload href="/blog?category=make">make</a>
+        <a data-sveltekit-reload href="/blog?category=life">life</a>
         <a data-sveltekit-reload href="/about">about</a>
     </nav>
 </div>

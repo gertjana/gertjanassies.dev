@@ -9,6 +9,10 @@ image: "/images/jess-bailey-l3N9Q27zULw-unsplash.jpg"
 
 ---
 
+<script lang="ts">
+    import Tag from '$src/components/Tag.svelte'
+</script>
+
 ## Learning experience
 
 I wanted to learn more about creating web applications with [SvelteKit](https://kit.svelte.dev/docs/introduction) (which consists of Svelte and Vite)
@@ -145,7 +149,7 @@ export const load: PageLoad = async ({ data }) => {
 };
 ```
 
-We get the markdown file here and return it so in our page.svelte we can do:
+We get the markdown file as a component, and return it with the metadata, we call .default on the component to make sure it gets converted to commonJS to avoid things like "unexpected token: require" when svelte tries to parse it as an ES Module. this took me a while to figure out though.
 
 ```svelte
 <script lang="ts">
@@ -158,7 +162,13 @@ We get the markdown file here and return it so in our page.svelte we can do:
 
 ```
 
-which will render the post correctly, it will even render any other svelte components you put in that file like shown above for the homepage.
+which will render the post correctly, it will even render any other svelte components you put in that file like shown above for the homepage, for instance i can use the Tag component to show a tag here:
+
+```svelte
+<Tag path="/blog" type="category" text="code" />
+```
+
+and here it is working: <Tag path="/blog" type="category" text="code" />  click on and it will take you to list of blogs that have the code category
 
 If you have a +layout.svelte in your root path, sveltekit will use to wrap it around the content:
 

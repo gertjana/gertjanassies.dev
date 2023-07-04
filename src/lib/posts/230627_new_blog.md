@@ -41,7 +41,7 @@ This is my personal space where I talk about technology, coding, the maker space
 
 ## Featured blogs
 
-&lt;Posts tag="featured" size=3 /&gt;  
+<Posts tag="featured" size=3 />  
 
 ## todo
 

@@ -3,7 +3,7 @@ title: An Optional type in Go - an experiment
 author: Gertjan Assies
 date: "2022-05-28"
 category: code
-tags: go, functional, option, experiment
+tags: go, functional, option, experiment, featured
 image: "/images/optional_go_top.jpg"
 summary: "This blog post is an thought experiment in how a functional programming concept could be implemented in the Go language."
 

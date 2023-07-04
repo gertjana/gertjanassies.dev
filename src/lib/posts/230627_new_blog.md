@@ -3,7 +3,7 @@ title: Made a new Blog
 date: "2023-06-27"
 author: Gertjan Assies
 summary: Learning about Svelte by making a blog
-tags: svelte, markdown, featured
+tags: svelte, markdown, typescript, featured
 category: code
 image: "/images/jess-bailey-l3N9Q27zULw-unsplash.jpg"
 
@@ -45,9 +45,140 @@ This is my personal space where I talk about technology, coding, the maker space
 
 ## todo
 
-* bla
+...
 
 ```
+
+## Frontmatter
+
+Frontmatter is a convention to put metadata at the top of your markdown blog, mdsvex supports that out of the box, so when it pre-processes your markdown page, it will add a metadata field which contains all that information.
+
+```yaml
+---
+title: Made a new Blog
+date: "2023-06-27"
+author: Gertjan Assies
+summary: Learning about Svelte by making a blog
+tags: svelte, markdown, frontend, typescript, featured
+category: code
+image: "/images/pencils.jpg"
+
+---
+```
+
+so here's some code that gets the list of posts in this blog
+
+```typescript
+    type GlobEntry = {
+        metadata: MetaData;
+        default: unknown;
+    };
+
+    export type MetaData = {
+        title: number;
+        summary: string;
+        date: string;
+        author: string;
+        tags: string;
+        category: string;
+        image: string;
+        slug: string;
+    }
+
+    // Get all posts and add metadata
+    export const posts: MetaData[] = Object.entries(
+        import.meta.glob<GlobEntry>('/src/lib/posts/**/*.md', { eager: true }))
+            .map(([filepath, globEntry]) => {
+                return {
+                ...globEntry.metadata,
+                slug: parse(filepath).name,
+                };
+            })
+            .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+
+```
+
+The meta.glob() function loads and pre-processes all the *.md files, and returns the path to the file and a globEntry which contains the parsed metadata,  
+
+I then add the slug, so I can link to the post itself.
+
+As the functionality above is executed on the server it is not directly available on the client side, but if you name your file `+page.server.ts` it gets executed on the server.
+
+and now we can take advantage of the load function which gets executed every a page or component is parsed.
+
+```typescript
+// /blog/[slug]/+page.server.ts
+    import { posts } from '$lib/server/posts';
+    import { error } from '@sveltejs/kit';
+    import type { PageServerLoad } from './$types';
+
+    // params contains any parameterized value in the url path, in this case [slug]
+    export const load: PageServerLoad = async ({ params }) => {
+        const { slug } = params;
+
+        // get post metadata
+        const post = posts.find((post) => slug === post.slug);
+
+        if (!post) {
+            throw error(404, 'Post not found');
+        }
+
+        return {
+            post,
+        };
+    };
+```
+
+and after that the load on client is called:
+
+```typescript
+import type { PageLoad } from './$types';
+
+// data contains what's returned from the server side load
+export const load: PageLoad = async ({ data }) => {
+    const component = await import(`../../../lib/posts/${data.post.slug}.md`);
+
+    return {
+        post: data.post,
+        component: component.default,
+    };
+};
+```
+
+We get the markdown file here and return it so in our page.svelte we can do:
+
+```svelte
+<script lang="ts">
+    import type { PageData } from './$types';
+    export let data: PageData;
+</script>
+...
+<svelte:component this={data.component} />
+...
+
+```
+
+which will render the post correctly, it will even render any other svelte components you put in that file like shown above for the homepage.
+
+If you have a +layout.svelte in your root path, sveltekit will use to wrap it around the content:
+
+```svelte
+  <svelte:head>
+    <title>gertjan.assies.dev</title> 
+  </svelte:head>
+  
+  <Nav />
+  
+  <div class="content">
+    <main in:fade>
+      <slot />
+    </main>
+  </div>
+  
+  <Footer />
+```
+
+where the Nav and Footer are components that will render the top and bottom part respectively and the content will replace the slot tag.
 
 ## What's to (or not to) love
 
@@ -58,3 +189,5 @@ So lets categorize that as a steep learning curve and my tendency to just start 
 I think with the modular (components) setup, thought out defaults, and ability to run the component's code on the server or client (or both) makes it very powerful and flexible.
 
 Vite making developing a pleasure with it's almost instantly refreshing pages everytime you press save. and Typescript making sure you're component properties/attributes can only hold the right stuff.
+
+Attribution: The image is courtesy of [Jess Bailey](https://unsplash.com/s/photos/jess-bailey) on [unsplash](https://unsplash.com/)

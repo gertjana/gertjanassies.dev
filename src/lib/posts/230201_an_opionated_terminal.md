@@ -2,7 +2,7 @@
 title: An opinionated terminal experience
 author: Gertjan Assies
 date: "2023-02-01"
-tags: terminal, fish, iterm2, featured
+tags: terminal, fish, iterm2, brew
 category: tooling
 image: "/images/an_opinionated_terminal_top.jpg"
 summary: "As a Site Reliability / Software Engineer I'm a bit opinionated when it comes to the tool I use most of the time: The command line."

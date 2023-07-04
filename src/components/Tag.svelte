@@ -20,7 +20,7 @@
         border-radius: 0.5em;
         background-color: var(--accent-4);
         color: #000;
-        font-size: 0.75em;
+        font-size: 0.6em;
         font-weight: bold;
         text-transform: uppercase;
         margin-right: 0.5em;
@@ -31,7 +31,7 @@
         border-radius: 0.5em;
         background-color: var(--accent-2);
         color: #fff;
-        font-size: 0.75em;
+        font-size: 0.6em;
         font-weight: bold;
         text-transform: uppercase;
         margin-right: 0.5em;

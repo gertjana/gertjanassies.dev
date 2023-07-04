@@ -13,10 +13,12 @@
     <nav>
         <a data-sveltekit-reload href="/">home</a>
         <a data-sveltekit-reload href="/blog">blog</a>
+        <a data-sveltekit-reload href="/about">about</a>
+        <span>categories:</span>
         <a data-sveltekit-reload href="/blog?category=code">code</a>
         <a data-sveltekit-reload href="/blog?category=make">make</a>
+        <a data-sveltekit-reload href="/blog?category=tooling">tooling</a>
         <a data-sveltekit-reload href="/blog?category=life">life</a>
-        <a data-sveltekit-reload href="/about">about</a>
     </nav>
 </div>
 <br style="clear: both;"/>
@@ -41,9 +43,16 @@
     nav {
         float: right;
         margin-top: 3em;
-        margin-right: 2em;
+        margin-right: 1em;
         vertical-align: bottom;
         border-bottom: 1px solid var(--accent-1)
+    }
+
+    nav span {
+        margin-top: 3em;
+        margin-left: 2em;
+        margin-right: 1em;
+        vertical-align: bottom;
     }
     img {
         float:left;
@@ -51,7 +60,7 @@
         margin-right: 2em;
     }
     nav a {
-        margin-right: 2em;
+        margin-right: 1em;
         text-decoration-line: none;
     }
 </style>

@@ -17,7 +17,7 @@
     }
 
     // Get all posts and add metadata
-    const posts = Object.entries(
+    export const posts: MetaData[] = Object.entries(
         import.meta.glob<GlobEntry>('/src/lib/posts/**/*.md', { eager: true }))
             .map(([filepath, globEntry]) => {
                 return {
@@ -25,6 +25,4 @@
                 slug: parse(filepath).name,
                 };
             })
-            .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
-    export { posts };
+            .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()) satisfies MetaData[];

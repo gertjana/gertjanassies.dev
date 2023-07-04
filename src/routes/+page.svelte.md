@@ -12,7 +12,7 @@ This is my personal space where I talk about technology, coding, the maker space
 
 ## Featured blogs
 
-<Posts posts={data.posts} size="3" tag="featured" />
+<Posts posts={data.posts} size={3} tag="featured" show={false} />
 
 ## todo
 
@@ -26,5 +26,5 @@ This is my personal space where I talk about technology, coding, the maker space
 * ~~support categories~~
 * ~~Pinned blogs on homepage~~
 * ~~bug: running in node gives an error~~
-* pagination
+* ~~pagination~~
 * dark/light theme

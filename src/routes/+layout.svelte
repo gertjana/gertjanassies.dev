@@ -6,7 +6,7 @@
   </script>
   
   <svelte:head>
-    <title>gertjan.assies.dev</title> 
+    <title>gertjanassies.dev</title> 
     <meta name="description" content="Gertjan Assies personal blog" />
     <meta name="keywords" content="Gertjan Assies, blog, personal, code, make, technology, programming, maker, 3dprint" />
     <meta name="author" content="Gertjan Assies" />

@@ -11,9 +11,9 @@
     <!-- Theme<ThemeSwitch /> -->
 <div class="right">
     <nav>
-        <a data-sveltekit-reload href="/">home</a>
-        <a data-sveltekit-reload href="/blog">blog</a>
-        <a data-sveltekit-reload href="/about">about</a>
+        <a href="/">home</a>
+        <a href="/blog">blog</a>
+        <a href="/about">about</a>
         <span>categories:</span>
         <a data-sveltekit-reload href="/blog?category=code">code</a>
         <a data-sveltekit-reload href="/blog?category=make">make</a>

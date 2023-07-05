@@ -11,7 +11,7 @@
     
     export let size: number;
 
-    export let show: boolean = true;
+    export let showPagination: boolean = true;
 
     let currentPage = 1
 
@@ -36,7 +36,7 @@
     $: paginatedPosts = paginate(posts, pageSize, currentPage)
 </script>
 
-{#if show}
+{#if showPagination}
     <div class="pagination">
         <LightPaginationNav
         totalItems="{posts.length}"
@@ -53,7 +53,7 @@
         <Post metadata="{post}" />
     {/each}
 </article>
-{#if show}
+{#if showPagination}
     <div class="pagination">
         <LightPaginationNav
         totalItems="{posts.length}"

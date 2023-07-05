@@ -76,6 +76,10 @@
       border-right: 1px solid var(--accent-4);
     }
 
+    :global(p code) {
+      font-size: 1.4em;
+      color: var(--accent);
+    }
 
     div.content {
       border-left: 1px solid var(--accent);

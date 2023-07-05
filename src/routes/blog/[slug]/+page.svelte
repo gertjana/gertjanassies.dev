@@ -1,12 +1,22 @@
 <script lang="ts">
-    import Tag from '$src/components/Tag.svelte';
     import TagBar from '$src/components/TagBar.svelte';
     
     import type { PageData } from './$types';
-
     export let data: PageData;
 
-    // /** @type { (arg0: string) => string } */
+    import { onMount } from 'svelte';
+
+    import { mermaidRendered } from '$lib/stores.ts';
+    import mermaid from 'mermaid'
+
+    mermaid.initialize({ theme: 'neutral', startOnLoad: false })
+    onMount(() => {
+        mermaidRendered.set(true)
+        setTimeout(async () => {
+            await mermaid.run()
+        }, 0)
+    })
+
     const u = (x: string) => { if (x == undefined) return ""; else return x;}
 
 </script>

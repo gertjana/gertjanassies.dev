@@ -3,7 +3,7 @@ title: Made a new Blog
 date: "2023-06-27"
 author: Gertjan Assies
 summary: Learning about Svelte by making a blog
-tags: svelte, markdown, typescript, featured
+tags: svelte, markdown, typescript, mermaid, mdsvex, featured
 category: code
 image: "/images/jess-bailey-l3N9Q27zULw-unsplash.jpg"
 
@@ -11,6 +11,7 @@ image: "/images/jess-bailey-l3N9Q27zULw-unsplash.jpg"
 
 <script lang="ts">
     import Tag from '$src/components/Tag.svelte'
+    import Mermaid from '$src/components/Mermaid.svelte'
 </script>
 
 ## Learning experience
@@ -73,6 +74,7 @@ image: "/images/pencils.jpg"
 so here's some code that gets the list of posts in this blog
 
 ```typescript
+    // $lib/server/posts.ts
     type GlobEntry = {
         metadata: MetaData;
         default: unknown;
@@ -102,40 +104,48 @@ so here's some code that gets the list of posts in this blog
 
 ```
 
-The meta.glob() function loads and pre-processes all the *.md files, and returns the path to the file and a globEntry which contains the parsed metadata,  
+The meta.glob() function loads and pre-processes all the *.md files, and returns the path to the file and a globEntry which contains the parsed frontmatter metadata,  
 
-I then add the slug, so I can link to the post itself.
+I then get the slug from the filepath, so I can link to the post itself.
 
-As the functionality above is executed on the server it is not directly available on the client side, but if you name your file `+page.server.ts` it gets executed on the server.
+As the functionality above is executed on the server (anything in $lib/server is executed serverside) it is not directly available on the client side, so when we name the file +page.server.ts it also gets executed on the server. anything returned will be passed on to the load function in +page.ts (client-side)
 
-and now we can take advantage of the load function which gets executed every a page or component is parsed.
+The order of which the files get executed is shown here, if there is a load() function in any of the .ts files, it will get executed
+
+<Mermaid height="50">
+flowchart LR
+    engine-->page.server.ts-->page.ts-->page.svelte
+</Mermaid>
+
+and now we can take advantage of this by get the metadata for the post we want and return that so we can use it in our page 
 
 ```typescript
 // /blog/[slug]/+page.server.ts
-    import { posts } from '$lib/server/posts';
-    import { error } from '@sveltejs/kit';
-    import type { PageServerLoad } from './$types';
+import { posts } from '$lib/server/posts';
+import { error } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
 
-    // params contains any parameterized value in the url path, in this case [slug]
-    export const load: PageServerLoad = async ({ params }) => {
-        const { slug } = params;
+// params contains any parameterized value in the url path, in this case [slug]
+export const load: PageServerLoad = async ({ params }) => {
+    const { slug } = params;
 
-        // get post metadata
-        const post = posts.find((post) => slug === post.slug);
+    // get post metadata
+    const post = posts.find((post) => slug === post.slug);
 
-        if (!post) {
-            throw error(404, 'Post not found');
-        }
+    if (!post) {
+        throw error(404, 'Post not found');
+    }
 
-        return {
-            post,
-        };
+    return {
+        post,
     };
+};
 ```
 
 and after that the load on client is called:
 
 ```typescript
+// /blog/[slug]/+page.ts
 import type { PageLoad } from './$types';
 
 // data contains what's returned from the server side load
@@ -152,6 +162,7 @@ export const load: PageLoad = async ({ data }) => {
 We get the markdown file as a component, and return it with the metadata, we call .default on the component to make sure it gets converted to commonJS to avoid things like "unexpected token: require" when svelte tries to parse it as an ES Module. this took me a while to figure out though.
 
 ```svelte
+// /blog/[slug]/+page.svelte
 <script lang="ts">
     import type { PageData } from './$types';
     export let data: PageData;
@@ -159,10 +170,9 @@ We get the markdown file as a component, and return it with the metadata, we cal
 ...
 <svelte:component this={data.component} />
 ...
-
 ```
 
-which will render the post correctly, it will even render any other svelte components you put in that file like shown above for the homepage, for instance i can use the Tag component to show a tag here:
+which will render the post correctly, it will even render any other svelte components you put in that file for instance in this blog I can use the Tag component to show a tag here:
 
 ```svelte
 <Tag path="/blog" type="category" text="code" />
@@ -194,10 +204,13 @@ where the Nav and Footer are components that will render the top and bottom part
 
 As with most javascript/typescript frameworks, it can all too quickly becomes a bit of a mess, although during the work I learned more and more at how it all works, so I revisited working but somewhat crappy code multiple times.
 
-So lets categorize that as a steep learning curve and my tendency to just start assembling the swedish furniture instead of reading the manual first.
+So lets categorize that as a somewhat steep learning curve and my tendency to just start assembling the swedish furniture instead of reading the manual first.
 
-I think with the modular (components) setup, thought out defaults, and ability to run the component's code on the server or client (or both) makes it very powerful and flexible.
+I think with the modular (components) setup, thought out defaults, and ability to run the component's code on the server or client (or both) makes it a very powerful and flexible framework.
 
 Vite making developing a pleasure with it's almost instantly refreshing pages everytime you press save. and Typescript making sure you're component properties/attributes can only hold the right stuff.
 
-Attribution: The image is courtesy of [Jess Bailey](https://unsplash.com/s/photos/jess-bailey) on [unsplash](https://unsplash.com/)
+## References
+
+* [Blog code]()
+* Image attribution: The cover image is courtesy of [Jess Bailey](https://unsplash.com/s/photos/jess-bailey) on [unsplash](https://unsplash.com/)

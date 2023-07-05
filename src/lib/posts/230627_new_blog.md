@@ -70,6 +70,7 @@ summary: Learning about Svelte by making a blog
 tags: sveltekit, markdown, typescript, mermaid, mdsvex, featured
 category: code
 image: "/images/new_blog_top.jpg"
+published: true
 
 ---
 ```

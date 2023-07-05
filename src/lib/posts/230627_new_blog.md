@@ -6,6 +6,7 @@ summary: Learning about Svelte by making a blog
 tags: sveltekit, markdown, typescript, mermaid, mdsvex, featured
 category: code
 image: "/images/new_blog_top.jpg"
+published: true 
 
 ---
 
@@ -240,13 +241,15 @@ and here it is working: <Tag path="/blog" type="category" text="code" />  click 
 
 ## Deployment
 
-I decided to check out [render](https://render.com) to deploy this blog and that was by far the best and easiest experience so far
+I decided to check out [render](https://render.com) to deploy this blog and that was by far the best and easiest experience I've had so far
 All I had to do is
 
 * Add a `Dockerfile`
 * Create a new webservice in render
 * connect the github repo
 * Add A and CAA records to the dns
+
+Render will automatically issue an SSL Certificate and deploy the app on every commit pushed to the repo
 
 ## What's to (or not to) love
 

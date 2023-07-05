@@ -21,6 +21,8 @@
         return posts.slice((currentPage - 1) * pageSize, (currentPage - 1) * pageSize + pageSize);
     }
 
+    posts = posts.filter(post => post.published === true)
+
     if (category != undefined && category != "") {
         posts = posts.filter(post => {  
             // if (post.category == undefined || post.category == "") return false;

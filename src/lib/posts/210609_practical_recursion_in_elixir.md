@@ -6,6 +6,7 @@ category: code
 tags: elixir, recursion
 image: "/images/practical_recursion_top.jpg"
 summary: Explaining recursion with a very practical use case
+published: true
 
 ---
 

@@ -76,7 +76,7 @@
       border-right: 1px solid var(--accent-4);
     }
 
-    :global(p code) {
+    :global(p code, li code) {
       font-size: 1.4em;
       color: var(--accent);
     }

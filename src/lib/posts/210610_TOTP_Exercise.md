@@ -6,6 +6,7 @@ category: code
 tags: totp, tips, python
 image: "/images/totp_exercise.jpg"
 summary: As an exercise, I wanted to see if I could get TOTP codes used for multi factor authentication visible without having to resort to the Google Authenticator app.
+published: true
 
 ---
 

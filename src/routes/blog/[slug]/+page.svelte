@@ -22,6 +22,9 @@
 </script>
 
 <h1>{data.post.title}</h1>
+{#if ! data.post.published}
+    <span class="draft">DRAFT</span>
+{/if}
 <div class="tags">
     <TagBar path="/blog" tags="{data.post.tags}" category="{data.post.category}" />
 </div>
@@ -71,5 +74,11 @@
         width:25%;
         margin-left: 2em;
 
+    }
+    span.draft {
+        color: var(--error);
+        font-size: 1.5em;
+        font-weight: bold;
+        margin-left: 1em;
     }
 </style>

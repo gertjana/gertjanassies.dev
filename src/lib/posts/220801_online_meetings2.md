@@ -6,6 +6,8 @@ category: make
 tags: pico, kicad, python
 image: "/images/online_meetings2_top.png"
 summary: "Some improvements to the original design"
+published: true
+
 ---
 
 A while ago I blogged about a small project with a Raspberry Pi Pico and a couple of buttons to make a tool that could help me in all those online meetings when we all had to work from home during Covid.

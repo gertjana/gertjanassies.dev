@@ -8,6 +8,7 @@ image: "/images/online_meetings_top.png"
 summary: "While on a not particularly interesting online meeting, my eye fell on the [Raspberry Pico](https://www.raspberrypi.org/products/raspberry-pi-pico/) that I ordered and had just arrived that morning.  
 After more than a year working from home, I got into the habit to mute my audio when I'm not speaking and in large meetings or perceived bandwidth issues, I disable my video. enabling both again when I need to speak.
 Now, what if I could add a couple of buttons to the Pico to make those tasks a little easier."
+published: true
 
 ---
 

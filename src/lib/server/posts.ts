@@ -14,6 +14,7 @@
         category: string;
         image: string;
         slug: string;
+        published: boolean;
     }
 
     // Get all posts and add metadata

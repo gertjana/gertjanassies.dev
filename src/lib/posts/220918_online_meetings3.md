@@ -7,6 +7,7 @@ tags: pico, kicad, fusion360, 3dprint, featured
 image: "/images/online_meetings3_top.png"
 summary: "In the previous two blogs, I explained the idea and execution of a small device that would allow me to mute/unmute audio/video and raise a hand in video calls with hangouts, zoom or teams.  
 now to wrap it up, and create an encasing for it"
+published: true
 
 ---
 

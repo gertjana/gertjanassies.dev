@@ -6,6 +6,7 @@ category: code
 tags: docker, go, scratch, optimization
 image: "/images/smaller_docker_containers_top.jpg"
 summary: How to create your docker containers as small as possible
+published: true
 
 ---
 

@@ -8,7 +8,7 @@
     <h2>gertjanassies.dev</h2><br/>
     <sub>ramblings of a chaotic mind</sub>
 </div>
-    <!-- Theme<ThemeSwitch /> -->
+
 <div class="right">
     <nav>
         <a href="/">home</a>
@@ -50,9 +50,9 @@
 
     nav span {
         margin-top: 3em;
-        margin-left: 2em;
-        margin-right: 1em;
+        margin-left: 1em;
         vertical-align: bottom;
+        color: var(--accent-1);
     }
     img {
         float:left;

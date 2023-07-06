@@ -3,6 +3,7 @@
     import Footer from '$src/components/Footer.svelte';
     import { fade } from 'svelte/transition';
 
+    import { theme } from '$lib/stores.ts';
   </script>
   
   <svelte:head>
@@ -16,8 +17,11 @@
     <meta property="og:image" content="https://gertjanassies.dev/logo_ga.svg" />
     <meta property="og:url" content="https://gertjanassies.dev" />
     <meta name="robots" content="index, follow, archive" />
+
+    <meta name="color-scheme" content={$theme == 'system' ? 'light dark' : $theme}/> 
   </svelte:head>
   
+
   <Nav />
   
   <div class="content">
@@ -29,8 +33,10 @@
   <Footer />
 
   <style lang="scss">
-    @import "$src/styles/prism-one-light.css";
-    @import "$src/styles/color-palette.css";
+    @import "$src/styles/prism-one-dark.css" (prefers-color-scheme: dark);
+    @import "$src/styles/prism-one-light.css" (prefers-color-scheme: light);
+    @import "$src/styles/color-palette-light.css"; // (prefers-color-scheme: light);
+    // @import "$src/styles/color-palette-dark.css" (prefers-color-scheme: dark);
     @import "$src/styles/typography.css";
   
     :global(html) {
@@ -81,6 +87,12 @@
       color: var(--accent);
     }
 
+    :global(select) {
+      color: var(--links);
+      font-family: FiraCode, monospace;
+      font-size: 1em;
+      border: 0;
+    }
     div.content {
       border-left: 1px solid var(--accent);
       display: flex;

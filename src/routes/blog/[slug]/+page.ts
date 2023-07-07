@@ -1,10 +1,11 @@
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = async ({ data }) => {
-    const component = await import(`../../../../content/${data.post.slug}.md`);
+  // TODO find a way to the root path and go from there
+  const component = await import(`../../../../content/${data.post.slug}.md`);
 
-    return {
-        post: data.post,
-        component: component.default,
-    };
+  return {
+    post: data.post,
+    component: component.default,
+  };
 };

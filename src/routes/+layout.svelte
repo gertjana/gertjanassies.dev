@@ -1,10 +1,10 @@
 <script lang="ts">
-    import Nav from '$src/components/Nav.svelte';
-    import Footer from '$src/components/Footer.svelte';
-    import { fade } from 'svelte/transition';
+  import Nav from '$src/components/Nav.svelte';
+  import Footer from '$src/components/Footer.svelte';
+  import { fade } from 'svelte/transition';
 
-    import { theme } from '$lib/stores.ts';
-  </script>
+  import { theme } from '$lib/stores.ts';
+</script>
   
   <svelte:head>
     <title>gertjanassies.dev</title> 
@@ -35,8 +35,7 @@
   <style lang="scss">
     @import "$src/styles/prism-one-dark.css" (prefers-color-scheme: dark);
     @import "$src/styles/prism-one-light.css" (prefers-color-scheme: light);
-    @import "$src/styles/color-palette-light.css"; // (prefers-color-scheme: light);
-    // @import "$src/styles/color-palette-dark.css" (prefers-color-scheme: dark);
+    @import "$src/styles/color-palette.css"; 
     @import "$src/styles/typography.css";
   
     :global(html) {

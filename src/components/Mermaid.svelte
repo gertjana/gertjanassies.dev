@@ -1,8 +1,8 @@
 <script>
-    import { fade } from "svelte/transition";
-    import Loading from "$src/components/Loading.svelte";
-    import { mermaidRendered } from "$lib/stores";
-    export let height = 400;
+  import { fade } from "svelte/transition";
+  import { mermaidRendered } from "$lib/stores";
+
+export let height = 400;
 </script>
 
 <div class="container" style:height= { $mermaidRendered ? null : `${height}px`}>
@@ -12,7 +12,7 @@
   </pre>
   {:else}
   <div out:fade={{ duration:300 }} class="placeholder" style:height={ `${height}px` }>
-    <Loading loading={ true } />
+    ...
   </div>
   {/if}
 </div>

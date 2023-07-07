@@ -95,12 +95,3 @@ The fact that I worked from home since march due to Covid19 might have something
 BTW: I used the excellent [ex\_cli](https://hex.pm/packages/ex_cli) library for creating a command-line app, with argument parsing
 
 The total application source code can be found here: [https://gitlab.com/gertjana/van\_moofings](https://gitlab.com/gertjana/van_moofings)
-
-<style>
-  :global(span.katex-html) {
-    visibility: hidden;
-  }
-  :global(math) {
-    font-size: 1.5em;
-  }
-</style>

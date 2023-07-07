@@ -105,7 +105,14 @@
     :global(div.content h1, div.content h2, div.content h3) {
       font-family: RedHatText;
       font-weight: 400;
-      margin: 0;
+      // margin: 0;
       margin-top: 1em;
     }
-  </style>
+
+    :global(span.katex-html) {
+    visibility: hidden;
+    }
+    :global(math) {
+      font-size: 1.5em;
+    }
+  </style>f

@@ -177,7 +177,6 @@ I then get the slug from the filepath, so I can link to the post itself.
 
 As the functionality above is executed on the server (anything in $lib/server is executed serverside) it is not directly available on the client side, so when we name the file +page.server.ts it also gets executed on the server. anything returned will be passed on to the load function in +page.ts (client-side)
 
-
 ```typescript
 // /blog/[slug]/+page.server.ts
 import { posts } from '$lib/server/posts';

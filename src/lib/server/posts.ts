@@ -19,7 +19,7 @@
 
     // Get all posts and add metadata
     export const posts: MetaData[] = Object.entries(
-        import.meta.glob<GlobEntry>('/src/lib/posts/**/*.md', { eager: true }))
+        import.meta.glob<GlobEntry>('/content/*.md', { eager: true }))
             .map(([filepath, globEntry]) => {
                 return {
                 ...globEntry.metadata,

@@ -1,7 +1,10 @@
 # List to keep track what needs to be done
 
-* feature: draft blogs
-* feature: dark/light theme
+* ~~feature: math formulas in markdown~~
+* feature: dark/light theme button
+* ~~feature: math formulas in markdown~~
+* ~~feature: draft blogs~~
+* ~~feature: dark/light theme based on system setting~~
 * ~~feature: support mermaid~~
 * ~~feature: pagination~~
 * ~~chore: deploy to render~~

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { LightPaginationNav, paginate } from 'svelte-paginate';
+    import { LightPaginationNav } from 'svelte-paginate';
     import Post from '$src/components/Post.svelte';
     import type { MetaData } from '$lib/server/posts';
 
@@ -23,18 +23,15 @@
 
     posts = posts.filter(post => post.published === true)
 
-    if (category != undefined && category != "") {
+    if (category) {
         posts = posts.filter(post => {  
-            // if (post.category == undefined || post.category == "") return false;
             return post.category == category;
         });
-    } else if (tag != undefined && tag != "all") {
+    } else if (tag && tag != "all") {
         posts = posts.filter(post => {
-            // if (post.tags == undefined || post.tags == "") return false; 
             return post.tags.indexOf(tag) != -1
         });
     }
-    /** @type { MetaData[] } */
     $: paginatedPosts = paginate(posts, pageSize, currentPage)
 </script>
 
@@ -72,7 +69,6 @@
     article.posts {
         margin-top: 1em;
     }
-
 
     div.pagination {
         display: flex;

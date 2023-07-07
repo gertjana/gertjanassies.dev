@@ -12,6 +12,4 @@ This is my personal space where I talk about technology, coding, the maker space
 
 ## Featured blogs
 
-<Posts posts={data.posts} size={3} tag="featured" showPagination={false} />
-
-
+<Posts posts={data.posts} size={5} tag="featured" showPagination={false} />

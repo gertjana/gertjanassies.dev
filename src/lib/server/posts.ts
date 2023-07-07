@@ -26,4 +26,4 @@
                 slug: parse(filepath).name,
                 };
             })
-            .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()) satisfies MetaData[];
+            .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());

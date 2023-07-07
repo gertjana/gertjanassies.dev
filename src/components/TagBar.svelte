@@ -1,13 +1,11 @@
-<script>
+<script lang="ts">
     import Tag from "./Tag.svelte";
 
-    /** @type {string} */
-     export let tags;
-    /** @type {string} */
-     export let category;
-    /** @type {string} */
-    export let path;
+    export let tags: string;
 
+    export let category: string;
+    
+    export let path: string;
 </script>
 
 {#if tags}

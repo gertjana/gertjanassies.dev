@@ -3,12 +3,10 @@
     import type { MetaData } from "$lib/server/posts";
 
     export let metadata: MetaData;
-
-    const u = (x: string) => { if (x == undefined) return ""; else return x;}
 </script>
 
 <article class="post">
-    <h3><a href="/blog/{metadata.slug}">{metadata.title}</a></h3>
+    <h3><a href="/blog/{metadata.slug}">{metadata.title ?? "no title"}</a></h3>
     <section class="tags">
         <TagBar path="/blog" tags="{metadata.tags}" category="{metadata.category}" />
     </section>
@@ -16,8 +14,8 @@
         {#if metadata.image}
             <img src="{metadata.image}" alt={metadata.title}/>
         {/if}
-        <sub>by {u(metadata.author)} on {u(metadata.date)}</sub>
-        <p>{u(metadata.summary)}</p>
+        <sub>by {metadata.author ?? "..."} on {metadata.date ?? "..."}</sub>
+        <p>{metadata.summary ?? "no summary"}</p>
     </section>
 </article>
 

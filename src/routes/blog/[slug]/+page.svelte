@@ -16,12 +16,9 @@
             await mermaid.run()
         }, 0)
     })
-
-    const u = (x: string) => { if (x == undefined) return ""; else return x;}
-
 </script>
 
-<h1>{data.post.title}</h1>
+<h1>{data.post.title ?? "no title"}</h1>
 {#if ! data.post.published}
     <span class="draft">DRAFT</span>
 {/if}
@@ -29,8 +26,8 @@
     <TagBar path="/blog" tags="{data.post.tags}" category="{data.post.category}" />
 </div>
 <div class="content">
-    <sub class="date">on {u(data.post.date)}</sub>
-    <sub class="author">by {u(data.post.author)}</sub>    
+    <sub class="date">on {data.post.date ?? "..."}</sub>
+    <sub class="author">by {data.post.author ?? "..."}</sub>    
 </div>
 <br/>
 {#if data.post.image}

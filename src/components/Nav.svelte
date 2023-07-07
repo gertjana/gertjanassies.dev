@@ -1,7 +1,7 @@
 <script lang="ts">
 </script>
 
-<div class="left">
+<div class="header-left">
     <a href="/">
         <img src="/logo_ga.svg" alt="logo" height="60">
     </a>
@@ -9,7 +9,7 @@
     <sub>ramblings of a chaotic mind</sub>
 </div>
 
-<div class="right">
+<div class="header-right">
     <nav>
         <a href="/">home</a>
         <a href="/blog">blog</a>
@@ -24,12 +24,12 @@
 <br style="clear: both;"/>
 
 <style lang="scss">
-    div.left {
+    div.header-left {
         float: left;
         border-bottom: 1px solid var(--accent-2);
         width: 400px;
     }
-    div.right {
+    div.header-right {
         float: right;
     }
     h2 {

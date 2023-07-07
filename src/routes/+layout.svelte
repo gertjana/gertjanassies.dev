@@ -108,5 +108,6 @@
       font-family: RedHatText;
       font-weight: 400;
       margin: 0;
+      margin-top: 1em;
     }
   </style>

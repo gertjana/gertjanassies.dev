@@ -101,7 +101,6 @@
       margin: 1em;
       padding-left: 1em;
       padding-top: 2em;
-      max-width: 75%;
     }
 
     :global(div.content h1, div.content h2, div.content h3) {

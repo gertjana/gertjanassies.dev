@@ -42,10 +42,10 @@ and when he doesn't have time for those things, he sleeps or works as an Site Re
 This blog is made with 
 
 * [sveltekit](https://kit.svelte.dev)
-    * [svelte](https://svelte.dev) - UI Framework
-    * [vite](https://vitejs.dev/) - frontend tooling
+  * [svelte](https://svelte.dev) - UI Framework
+  * [vite](https://vitejs.dev/) - frontend tooling
 * [typescript](https://www.typescriptlang.org/)
 * [mdsvex](https://mdsvex.pngwn.io/) - renders markdown
-    * [prism.js](https://prismjs.com/) - syntax highlighting code blocks in markdown
-    * [mermaid](https://mermaid.js.org/) - renderd text based diagrams and charts in markdown
-    * [katex](https://katex.org/) - renders KaTex math formula's in markdown
+  * [prism.js](https://prismjs.com/) - syntax highlighting code blocks in markdown
+  * [mermaid](https://mermaid.js.org/) - renderd text based diagrams and charts in markdown
+  * [katex](https://katex.org/) - renders KaTex math formula's in markdown

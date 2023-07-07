@@ -18,6 +18,8 @@
     "@sveltejs/kit": "^1.5.0",
     "mdsvex": "^0.10.6",
     "mermaid": "^10.2.4",
+    "rehype-katex-svelte": "^1.2.0",
+    "remark-math": "^3.0.0",
     "svelte": "^3.54.0",
     "svelte-check": "^3.0.1",
     "svelte-paginate": "^0.1.0",

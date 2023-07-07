@@ -18,15 +18,17 @@ One of my (modest) goals for 2020 is to cycle at least 4000km which is around 80
 
 Now to help keep track, I wrote a small command-line tool, that allows me to enter the current kilometres, and predict using linear trend analysis where it would end up at the end of the year.
 
-Linear trend analysis takes the average change between measurements and then apply that average to a future value. In formula form this is
+Linear trend analysis takes the average change between measurements and then apply that average to a future value $x$. In formula form this is
 
-![Formula 1](/images/practical_recursion_formula1.gif)
+$$ \frac{\frac{v_x-v_n}{t_x-t_n}}{1} = \frac{\frac{v_1-v_0}{t_1-t_0} + \frac{v_2-v_1}{t_2-t_1} \dots \frac{v_n-v_{n-1}}{t_n-t_{n-1}}}{n}
+$$
 
 or .. the average of all the previous points (0 to n) is equal to the average of the last value (n) and the future value (x) divided by the number of days from the last value to that future date.
 
 so what we need is a recursive function that does this part:
 
-![Formula 2](/images/practical_recursion_formula2.gif)
+$$ \frac{v_1-v_0}{t_1-t_0} + \frac{v_2-v_1}{t_2-t_1} \dots \frac{v_n-v_{n-1}}{t_n-t_{n-1}}
+$$
 
 I store it as a JSON data structure, so a simple map with dates and km values
 
@@ -93,3 +95,12 @@ The fact that I worked from home since march due to Covid19 might have something
 BTW: I used the excellent [ex\_cli](https://hex.pm/packages/ex_cli) library for creating a command-line app, with argument parsing
 
 The total application source code can be found here: [https://gitlab.com/gertjana/van\_moofings](https://gitlab.com/gertjana/van_moofings)
+
+<style>
+  :global(span.katex-html) {
+    visibility: hidden;
+  }
+  :global(math) {
+    font-size: 1.5em;
+  }
+</style>

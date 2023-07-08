@@ -13,7 +13,7 @@
   div {
     text-align: center;
     width: 100%;
-    border-top: 1px solid var(--accent-3);
+    border-top: 1px solid var(--accent-2);
   }
   p {
     font-size: smaller;

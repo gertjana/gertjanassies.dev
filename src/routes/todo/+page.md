@@ -1,13 +1,18 @@
+<script lang="ts">
+    import Tag from '$src/components/Tag.svelte'
+    
+</script>
 # List to keep track what needs to be done
 
-* ~~feature: math formulas in markdown~~
+* feature: copy button on code blocks
 * feature: dark/light theme button
+* ~~feature: content outside of docker container~~ <Tag type="label" text="won't do" />
 * ~~feature: math formulas in markdown~~
 * ~~feature: draft blogs~~
 * ~~feature: dark/light theme based on system setting~~
-* ~~feature: support mermaid~~
+* ~~feature: support mermaid diagrams~~
 * ~~feature: pagination~~
-* ~~chore: deploy to render~~
+* ~~chore: deploy to render.com~~
 * ~~chore: migrate medium blogs to here~~
 * ~~bug: running in node gives an error~~
 * ~~feature: Pinned blogs on homepage~~

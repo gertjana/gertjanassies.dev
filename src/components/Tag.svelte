@@ -8,8 +8,10 @@
 
 {#if type == 'category'}
   <span class="tag category" property="{text}"><a data-sveltekit-reload href="{path}?category={text}">{text}</a></span>
-{:else}
+{:else if type == 'tag'}
   <span class="tag" property="{text}"><a data-sveltekit-reload href="{path}?tag={text}">{text}</a></span>
+{:else}
+  <span class="tag label" property="{text}">{text}</span>
 {/if}
 
 <style lang="scss">
@@ -26,6 +28,11 @@
   }
   .category {
     background-color: var(--accent-2);
+    color: #fff;
+  }
+
+  .label {
+    background-color: var(--accent);
     color: #fff;
   }
 

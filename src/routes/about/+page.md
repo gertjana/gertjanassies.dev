@@ -1,7 +1,6 @@
 <script lang="ts">
-    import OnlinePlaces from "$src/components/OnlinePlaces.svelte"
+  import OnlinePlaces from "$src/components/OnlinePlaces.svelte"
 </script>
-
 # About me
 
 Im just a guy who (in random order) likes to

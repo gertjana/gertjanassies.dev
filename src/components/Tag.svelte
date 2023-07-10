@@ -10,9 +10,16 @@
   <span class="tag category" property="{text}"><a data-sveltekit-reload href="{path}?category={text}">{text}</a></span>
 {:else if type == 'tag'}
   <span class="tag" property="{text}"><a data-sveltekit-reload href="{path}?tag={text}">{text}</a></span>
-{:else}
-  <span class="tag label" property="{text}">{text}</span>
-{/if}
+{:else if type == 'warning'}
+  <span class="tag warning" property="{text}">{text}</span>
+{:else if type == 'info'}
+  <span class="tag info" property="{text}">{text}</span>
+{:else if type == 'success'}
+  <span class="tag success" property="{text}">{text}</span>
+{:else if type == 'error'}
+  <span class="tag error" property="{text}">{text}</span>
+
+  {/if}
 
 <style lang="scss">
   .tag {
@@ -31,9 +38,21 @@
     color: #fff;
   }
 
-  .label {
-    background-color: var(--accent);
+  .info {
+    background-color: var(--info);
     color: #fff;
+  }
+  .warning {
+    background-color: var(--warning);
+    color: #000;
+  }
+  .success {
+    background-color: var(--success);
+    color: #000;
+  }
+  .error {
+    background-color: var(--error);
+    color: #FFF;
   }
 
   a {

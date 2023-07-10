@@ -238,19 +238,24 @@ which will render the post correctly, it will even render any other svelte compo
 
 and here it is working: <Tag path="/blog" type="category" text="code" />  click on and it will take you to list of blogs that have the code category
 
-
 ## Deployment
 
-I decided to check out [render](https://render.com) to deploy this blog and that was by far the best and easiest experience I've had so far
+I decided to check out [render.com](https://render.com) to deploy this blog and that was by far the best and easiest experience I've had so far
 
-All I had to do is
+All I had to do was
 
 * Add a `Dockerfile`
-* Create a new webservice in render
+* Create a new webservice in render.com
 * connect the repo
 * Add A and CAA records to the dns
 
-Render will automatically issue an SSL Certificate and deploy the app on every commit pushed to the repo
+| DNS Entries | | | | |
+| :-- | -- | -- | -- | -- |
+| gertjanassies.dev. | 86400 | IN | A   | 216.24.57.1 |
+| gertjanassies.dev. | 86400 | IN | CAA | 0 issue "letsencrypt.org" |
+| gertjanassies.dev. | 86400 | IN | CAA | 0 issuewild "letsencrypt.org" |
+
+Render will automatically issue an SSL Certificate from the certificate authority mentioned in the CAA records and deploy the app on every commit pushed to the main branch of the repo
 
 ## What's to (or not to) love
 

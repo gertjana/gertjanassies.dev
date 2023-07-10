@@ -44,8 +44,8 @@ sts_role_resp = sts_client.assume_role_with_web_identity(
                 )
 
 sts_role_creds = {
-  "ApiKey": sts_role_resp['Credentials']['AccessKeyId'],
-  "ApiSecret": sts_role_resp['Credentials']['SecretAccessKey'],
+  "AccessKeyId": sts_role_resp['Credentials']['AccessKeyId'],
+  "SecretAccessKey": sts_role_resp['Credentials']['SecretAccessKey'],
   "SessionToken": sts_role_resp['Credentials']['SessionToken']
 }
 

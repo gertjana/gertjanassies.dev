@@ -84,6 +84,7 @@
     :global(pre) {
       position: relative;
       border: 1px solid var(--accent-3);
+      max-width: 67%;
     }
     :global(p code, li code) {
       font-size: 1.4em;

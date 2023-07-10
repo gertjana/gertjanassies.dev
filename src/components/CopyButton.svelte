@@ -7,7 +7,7 @@ const copy = (e: Event) => {
 
 </script>
 
-<button class="copy-button"  on:click={(e) => copy(e)}>
+<button class="copy-button" title="copy to clipboard" on:click={(e) => copy(e)}>
   <!-- https://icones.js.org/collection/all?s=octicon:copy-16 -->
   <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" {...$$props}>
     <path

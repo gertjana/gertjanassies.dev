@@ -22,10 +22,10 @@ const copy = (e: Event) => {
 <style>
   .copy-button {
     position: absolute; 
-    top: 0em; 
-    right: 1em;    
+    top: 0.2em; 
+    right: 0.2em;    
     background: none;
     cursor: pointer;
-    color: var(--accent);
+    color: var(--accent-3);
   }
 </style>

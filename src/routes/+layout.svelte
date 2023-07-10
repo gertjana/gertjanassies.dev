@@ -81,6 +81,9 @@
       border-right: 1px solid var(--accent-4);
     }
 
+    :global(pre) {
+      position: relative;
+    }
     :global(p code, li code) {
       font-size: 1.4em;
       color: var(--accent);

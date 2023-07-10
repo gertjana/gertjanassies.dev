@@ -1,21 +1,38 @@
 <script lang="ts">
   import TagBar from '$src/components/TagBar.svelte';
-  
-  import type { PageData } from './$types';
-  export let data: PageData;
+  import CopyButton from '$src/components/CopyButton.svelte';
 
   import { onMount } from 'svelte';
+  import { afterNavigate } from '$app/navigation'
 
   import { mermaidRendered } from '$lib/stores.ts';
   import mermaid from 'mermaid'
 
+  import type { PageData } from './$types';
+  export let data: PageData;
+
   mermaid.initialize({ theme: 'neutral', startOnLoad: false })
+  
   onMount(() => {
     mermaidRendered.set(true)
     setTimeout(async () => {
       await mermaid.run()
     }, 0)
+  });
+
+  afterNavigate(() => {
+    for (const node of document.querySelectorAll('pre > code')) {
+      console.log(node);
+      new CopyButton({ // use whatever Svelte component you like here
+        target: node,
+        props: {
+          content: node.textContent ?? '',
+          //style: 'position: absolute; top: 1ex; right: 1ex;', // requires <pre> to have position: relative;
+        },
+      })
+    }
   })
+
 </script>
 
 <h1>{data.post.title ?? "no title"}</h1>
@@ -76,5 +93,16 @@
     font-size: 1.5em;
     font-weight: bold;
     margin-left: 1em;
+  }
+
+  :global(button) {
+    float: right;
+    padding: 0.5em;
+    background: var(--accent-4);
+    border: none;
+    border-radius: 0 0 0 0.5em;
+    color: var(--text);
+    font-size: 0.8em;
+    cursor: pointer;
   }
 </style>

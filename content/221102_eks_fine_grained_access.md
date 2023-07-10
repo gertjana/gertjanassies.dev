@@ -49,7 +49,16 @@ sts_role_creds = {
   "SessionToken": sts_role_resp['Credentials']['SessionToken']
 }
 
-# code here that deploys a stack. runs a bigdata job on some s3 data or whatever you need doing.
+# code here that does whatever you need doing, that the role you assume allows you to
+# in this case list all s3 bucket names
+s3_resource=boto3.resource('s3',
+    aws_access_key_id=sts_role_creds['AccessKeyId'],
+    aws_secret_access_key=sts_role_creds['SecretAccessKey'],
+    aws_session_token=sts_role_creds['SessionToken'],
+)
+
+for bucket in s3_resource.buckets.all():
+    print(bucket.name)
 ```
 
 As you can see once the service account role bindings are set up the following environment variables are available:

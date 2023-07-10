@@ -1,12 +1,14 @@
 <script lang="ts">
   import { page } from '$app/stores';
 
-  const emojis = {
-    404: '🧱',
-    420: '🫠',
-    500: '💥'
-  };
-  let emoji: string = emojis[page.status] ?? emojis[500];
+
+  let emojis = new Map<number, string>([
+        [404, '🧱'],
+        [420, '🫠'],
+        [500, '💥'],
+    ]);
+
+  let emoji: string = emojis.get($page.status) ?? emojis.get(500) ?? '🧱';
 </script>
 
 <div>

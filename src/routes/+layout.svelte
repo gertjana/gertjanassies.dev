@@ -2,12 +2,17 @@
   import Nav from '$src/components/Nav.svelte';
   import Footer from '$src/components/Footer.svelte';
   import { fade } from 'svelte/transition';
+  import { dev } from '$app/environment';
 
   import { theme } from '$lib/stores.ts';
 </script>
   
   <svelte:head>
-    <title>gertjanassies.dev</title> 
+    {#if dev}
+      <title>DEV gertjanassies.dev</title> 
+    {:else}
+      <title>gertjanassies.dev</title> 
+    {/if}
     <meta name="description" content="Gertjan Assies personal blog" />
     <meta name="keywords" content="Gertjan Assies, blog, personal, code, make, technology, programming, maker, 3dprint" />
     <meta name="author" content="Gertjan Assies" />

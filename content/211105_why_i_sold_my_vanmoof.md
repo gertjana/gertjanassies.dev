@@ -46,3 +46,8 @@ I do miss the power-boost button though.
 I think the lesson to learn here is that you can have a great brand, great market strategy and a friendly costumer service but if the quality is not there, in the end that doesn't matter anymore as you would have lost those customers.
 
 Although I still love the brand. It's going to take some hard convincing on van Moof's part to get me to buy a new one but I have to say that seeing the new V got me hesitating again..
+
+### UPDATE 12 July 2023
+
+In the news today, vanMoof had to request to deferral of payments, usually the last step before they declare bankruptcy, unfortunately they didn't get the quality up to par, but they kept selling bikes, I see them everywhere in Amsterdam and Amstelveen.
+I do feel sorry, as the bike was unique with some great innovative technology. hopefully someone will invest for a restart, getting service and maintenance costs down should be prio one then.

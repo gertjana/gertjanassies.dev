@@ -6,6 +6,7 @@
 
 | type | text | status |
 | -- | -- | -- |
+| feature | metrics, page views etc | <Tag type="info" text="ready" /> |
 | feature | dark/light theme button | <Tag type= "info" text="ready" /> | 
 | feature | copy button on code blocks |  <Tag type=  "warning" text="in progress" /> |
 | feature | content outside of docker container |  <Tag type= "error" text="won't do" /> |

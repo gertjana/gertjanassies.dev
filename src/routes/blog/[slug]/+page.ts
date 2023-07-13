@@ -6,5 +6,6 @@ export const load: PageLoad = async ({ data }) => {
   return {
     post: data.post,
     component: component.default,
+    pageviews: data.pageviews,
   };
 };

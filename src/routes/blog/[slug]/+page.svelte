@@ -43,8 +43,9 @@
   <TagBar path="/blog" tags="{data.post.tags}" category="{data.post.category}" />
 </div>
 <div class="content">
+  <sub class="views">with {data.pageviews} views</sub>  
   <sub class="date">on {data.post.date ?? "..."}</sub>
-  <sub class="author">by {data.post.author ?? "..."}</sub>    
+  <sub class="author">by {data.post.author ?? "..."}</sub>  
 </div>
 <br/>
 {#if data.post.image}
@@ -53,6 +54,7 @@
 
 <svelte:component this={data.component} />
 
+{data.pageviews}
 <style>
   div.content {
     width: 100%;
@@ -80,8 +82,15 @@
     float:right;
     margin-right: 0.5em;
   }
+
+  sub.views {
+    float:right;
+    margin-right: 0.5em;
+    font-size: smaller;
+  } 
   sub.date {
     float: right;
+    margin-right: 0.5em;
   }
   img {
     float:right;

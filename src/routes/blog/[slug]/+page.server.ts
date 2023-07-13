@@ -2,7 +2,7 @@ import { posts } from '$lib/server/posts';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import redis from '$lib/server/redis';
-import dev from '$app/environment';
+import { dev } from '$app/environment';
 
 export const load: PageServerLoad = async ({ params }) => {
   const { slug } = params;

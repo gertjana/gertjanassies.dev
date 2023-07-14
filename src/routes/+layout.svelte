@@ -74,6 +74,7 @@
       padding-right: 0.5em;
       margin: 0em;
       background-color: var(--accent-4);
+      color: #000;
     }
     :global(td) {
       border-left: 1px solid var(--accent-4);

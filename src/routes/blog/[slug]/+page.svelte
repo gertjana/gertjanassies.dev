@@ -54,7 +54,6 @@
 
 <svelte:component this={data.component} />
 
-{data.pageviews}
 <style>
   div.content {
     width: 100%;

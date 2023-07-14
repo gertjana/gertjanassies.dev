@@ -5,7 +5,7 @@ import type { PageView } from '$lib/types';
 let prefix = "prod:";
 
 export const redis = () => {
-  let connection = process.env.REDIS_CONNECTION ?? "redis://192.168.215.2:6379";
+  let connection = process.env.REDIS_CONNECTION ?? "redis://localhost:6379";
   return new Redis(connection);    
 }
 

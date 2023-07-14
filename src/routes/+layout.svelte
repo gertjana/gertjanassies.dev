@@ -125,4 +125,4 @@
     :global(math) {
       font-size: 1.5em;
     }
-  </style>f
+  </style>

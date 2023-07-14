@@ -6,9 +6,9 @@
 
 | type | text | status |
 | -- | -- | -- |
-| feature | metrics, page views etc | <Tag type="info" text="ready" /> |
+| feature | metrics, page views etc | <Tag type="warning" text="in progress" /> |
 | feature | dark/light theme button | <Tag type= "info" text="ready" /> | 
-| feature | copy button on code blocks |  <Tag type=  "warning" text="in progress" /> |
+| feature | copy button on code blocks |  <Tag type=  "success" text="done" /> |
 | feature | content outside of docker container |  <Tag type= "error" text="won't do" /> |
 | feature | math formulas in markdown |  <Tag type=  "success" text="done" /> |
 | feature | draft blogs |  <Tag type=  "success" text="done" /> |

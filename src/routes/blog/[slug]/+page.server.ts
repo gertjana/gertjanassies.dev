@@ -1,8 +1,7 @@
 import { posts } from '$lib/server/posts';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { redis } from '$lib/server/redis';
-import { dev } from '$app/environment';
+import { incrementPageView } from '$lib/server/redis';
 
 export const load: PageServerLoad = async ({ params }) => {
   const { slug } = params;
@@ -14,11 +13,7 @@ export const load: PageServerLoad = async ({ params }) => {
     throw error(404, `Post: '${slug}' not found!`);
   }
 
-  let pageviews = await redis().incr(`post:${slug}:views`).then(() => { 
-    return redis().get(`post:${slug}:views`);
-  });
-
-
+  let pageviews = await incrementPageView(slug);
 
   return {
     post,

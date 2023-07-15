@@ -1,8 +1,8 @@
 import type { PageServerLoad } from './$types';
-import { getPageViews } from '$lib/server/redis';
+import { getPageStats} from '$lib/server/redis.ts';
 
 export const load: PageServerLoad = (async () => {
     return {
-        pageviews: getPageViews(),
+        pageviews: getPageStats(),
     };
   })

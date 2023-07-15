@@ -13,21 +13,40 @@
 
   mermaid.initialize({ theme: 'neutral', startOnLoad: false })
   
-  onMount(() => {
+  let readingTime = '0';
+  
+  onMount(async () => {
+    console.log('onMount');
     mermaidRendered.set(true)
     setTimeout(async () => {
       await mermaid.run()
     }, 0)
-  });
+
+    if (!data.stats.readingTime || data.stats.readingTime === '0') {
+      let postData = {
+        content: document.querySelector('.content')?.textContent ?? '',
+        slug: data.post.slug ?? '',
+      }
+      const resJson = await fetch(`/api/readingtime`, {
+        method: 'POST',
+        body: JSON.stringify(postData),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(res => res.json());
+      readingTime = resJson.readingTime;
+    } else {
+      readingTime = data.stats.readingTime;
+    }
+   });
 
   afterNavigate(() => {
     for (const node of document.querySelectorAll('pre > code')) {
       console.log(node);
-      new CopyButton({ // use whatever Svelte component you like here
+      new CopyButton({ 
         target: node,
         props: {
           content: node.textContent ?? '',
-          //style: 'position: absolute; top: 1ex; right: 1ex;', // requires <pre> to have position: relative;
         },
       })
     }
@@ -43,9 +62,9 @@
   <TagBar path="/blog" tags="{data.post.tags}" category="{data.post.category}" />
 </div>
 <div class="content">
-  <sub class="views">with {data.pageviews} views</sub>  
   <sub class="date">on {data.post.date ?? "..."}</sub>
   <sub class="author">by {data.post.author ?? "..."}</sub>  
+  <sub class="readingtime">viewed {data.stats.pageviews} times, reading time {readingTime ?? ""} min</sub>
 </div>
 <br/>
 {#if data.post.image}
@@ -81,12 +100,6 @@
     float:right;
     margin-right: 0.5em;
   }
-
-  sub.views {
-    float:right;
-    margin-right: 0.5em;
-    font-size: smaller;
-  } 
   sub.date {
     float: right;
     margin-right: 0.5em;

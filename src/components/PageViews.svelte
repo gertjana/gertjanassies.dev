@@ -16,6 +16,7 @@
       <tr>
           <th>Page</th>
           <th>Views</th>
+          <th>Reading Time</th>
       </tr>
     </thead>
     <tbody>
@@ -23,11 +24,11 @@
         <tr>
           <td>{item.slug}</td>
           <td class="views">{item.views}</td>
+          <td class="">{item.readingTime} min</td>
         </tr>
       {/each}
     </tbody>
   </table>
-
 {/if}
 
 <style>

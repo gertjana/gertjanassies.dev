@@ -1,7 +1,7 @@
 import { posts } from '$lib/server/posts';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { incrementPageView } from '$lib/server/redis';
+import { incrementPageView, getReadingTime } from '$lib/server/redis';
 
 export const load: PageServerLoad = async ({ params }) => {
   const { slug } = params;
@@ -14,9 +14,14 @@ export const load: PageServerLoad = async ({ params }) => {
   }
 
   let pageviews = await incrementPageView(slug);
+  let readingTime = await getReadingTime(slug);
 
+  let stats = {
+    pageviews: pageviews,
+    readingTime: readingTime,
+  }
   return {
     post,
-    pageviews,
+    stats,
   };
 };

@@ -1,23 +1,7 @@
 import { parse } from 'path';
+import type { MetaData, GlobEntry } from "$lib/types";
 
-type GlobEntry = {
-  metadata: MetaData;
-  default: unknown;
-};
-
-export type MetaData = {
-  title: string;
-  summary: string;
-  date: string;
-  author: string;
-  tags: string;
-  category: string;
-  image: string;
-  slug: string;
-  published: boolean;
-}
-
-// Get all metadat and add slug to it
+/** Get all metadata and add slug to it */
 export const posts: MetaData[] = Object.entries(
   import.meta.glob<GlobEntry>('/content/*.md', { eager: true }))
     .map(([filepath, globEntry]) => {

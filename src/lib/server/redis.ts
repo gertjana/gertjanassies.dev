@@ -1,7 +1,6 @@
 import Redis from 'ioredis';
 import { dev } from '$app/environment';
-import type { PageView } from '$lib/types';
-import { getRequest } from '@sveltejs/kit/node';
+import type { PageStat } from '$lib/types';
 
 let prefix = "prod";
 
@@ -31,19 +30,22 @@ export const incrementPageView: (slug: string) => Promise<number>  = async (slug
   return await redis().incr(`${prefix}:post:${slug}:views`);
 }
 
-export const getPageStats: () => Promise<PageView[]> = async () => {
+export const getPageStats: () => Promise<PageStat[]> = async () => {
   if (dev) { prefix = "dev"; }
+
   const keys_views = await redis().keys(`${prefix}:post:*:views`);
   const keys_reading_time = await redis().keys(`${prefix}:post:*:readingtime`);
+  
   if (keys_views.length != 0) {
     const views = (await redis().mget(...keys_views)).map((view) => view ?? '0');
-    const reading_times = (await redis().mget(...keys_reading_time)).map((view) => view ?? '0');
+    const reading_times = (await redis().mget(...keys_reading_time)).map((reading_time) => reading_time ?? '0');
+  
     return keys_views.map((key, index) => {
         const slug = key.split(':')[2];
         return {
             slug: slug,
             views: parseInt(views[index]),
-            readingTime: parseInt(reading_times[index])
+            readingTime: parseInt(reading_times[index] ?? '0')
         }
     });
   } else {

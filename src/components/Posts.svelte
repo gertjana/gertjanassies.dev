@@ -1,16 +1,21 @@
 <script lang="ts">
   import { LightPaginationNav } from 'svelte-paginate';
   import Post from '$src/components/Post.svelte';
-  import type { MetaData } from '$lib/server/posts';
+  import type { MetaData } from "$lib/types";
 
+  /** Array of post MetaData */
   export let posts: MetaData[];
 
+  /** tag to filter posts on */
   export let tag : string;
 
+  /** category to filter post on */
   export let category: string;
   
+  /** number of posts per page */
   export let size: number;
 
+  /** show or hide pagination */
   export let showPagination: boolean = true;
 
   let currentPage = 1

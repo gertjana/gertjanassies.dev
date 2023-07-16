@@ -1,17 +1,17 @@
 <script>
-  import { fade } from "svelte/transition";
   import { mermaidRendered } from "$lib/stores";
 
-export let height = 400;
+  /** height of the rendered formula */
+  export let height = 400;
 </script>
 
 <div class="container" style:height= { $mermaidRendered ? null : `${height}px`}>
   {#if $mermaidRendered}
-  <pre in:fade={{ delay:1000, duration:300 }} class="mermaid" style:height={ `${height}px` }>
+  <pre class="mermaid" style:height={ `${height}px` }>
     <slot />
   </pre>
   {:else}
-  <div out:fade={{ duration:300 }} class="placeholder" style:height={ `${height}px` }>
+  <div class="placeholder" style:height={ `${height}px` }>
     ...
   </div>
   {/if}

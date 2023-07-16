@@ -1,10 +1,12 @@
 <script lang="ts">
-  import  type { PageView } from '$lib/types';
+  import  type { PageStat } from '$lib/types';
 
-  export let data: PageView[];
+  /** Array of PageView's */
+  export let data: PageStat[];
 
-  let sorted: PageView[] = data.sort((a, b) => b.views - a.views);
+  let sorted: PageStat[] = data.sort((a, b) => b.views - a.views);
 
+console.log(sorted);
 </script>
 
 
@@ -24,7 +26,7 @@
         <tr>
           <td>{item.slug}</td>
           <td class="views">{item.views}</td>
-          <td class="">{item.readingTime} min</td>
+          <td class="">{item.readingTime ?? '-'} min</td>
         </tr>
       {/each}
     </tbody>

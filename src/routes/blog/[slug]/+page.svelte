@@ -16,11 +16,8 @@
   let readingTime = '0';
   
   onMount(async () => {
-    console.log('onMount');
     mermaidRendered.set(true)
-    setTimeout(async () => {
-      await mermaid.run()
-    }, 0)
+    setTimeout(async () => { await mermaid.run()}, 0)
 
     if (!data.stats.readingTime || data.stats.readingTime === '0') {
       let postData = {
@@ -30,9 +27,7 @@
       const resJson = await fetch(`/api/readingtime`, {
         method: 'POST',
         body: JSON.stringify(postData),
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        headers: {'Content-Type': 'application/json' }
       }).then(res => res.json());
       readingTime = resJson.readingTime;
     } else {
@@ -42,7 +37,6 @@
 
   afterNavigate(() => {
     for (const node of document.querySelectorAll('pre > code')) {
-      console.log(node);
       new CopyButton({ 
         target: node,
         props: {

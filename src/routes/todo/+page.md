@@ -4,7 +4,7 @@
 
 # List to keep track what needs to be done
 
-| type | text | status |
+| TODO's | | |
 | -- | -- | -- |
 | feature | metrics, reading time | <Label type="success" text="done" /> |
 | feature | metrics, page views  | <Label type="success" text="done" /> |

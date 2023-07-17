@@ -83,6 +83,11 @@
       margin: 0em;
     }
 
+    :global(tr:nth-child(2n)) {
+      background-color:var(--odd);
+      color: var(--even);
+    }
+
     :global(td:last-child, th:last-child) {
       border-right: 1px solid var(--accent-4);
     }

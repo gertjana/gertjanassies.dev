@@ -5,6 +5,6 @@
   export let data: PageData;
 </script>
 
-# Pageviews
+# Pagestats
 
 <PageViews data={data.pageviews} />

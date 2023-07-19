@@ -15,7 +15,8 @@ export type MetaData = {
 export type PageStat = {
   slug: string;
   views: number;
-  readingTime: number;
+  time: number;
+  reads: number;
 }
 
 /** type to describe a loaded markdown file with frontmatter metadata */

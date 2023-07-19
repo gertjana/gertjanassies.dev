@@ -6,6 +6,9 @@
 
   let sorted: PageStat[] = data.sort((a, b) => b.views - a.views);
 
+  const ratio = (reads: number, views: number) => {
+    return Math.round((reads / views) * 100);
+  }
 </script>
 
 
@@ -15,17 +18,21 @@
   <table class="pageviews">
     <thead>
       <tr>
-          <th>Page</th>
-          <th>Views</th>
-          <th>Reading Time</th>
+          <th>page</th>
+          <th>views</th>
+          <th>reading time</th>
+          <th>page reads</th>
+          <th>read ratio</th>
       </tr>
     </thead>
     <tbody>
       {#each sorted as item}
         <tr>
           <td>{item.slug}</td>
-          <td class="views">{item.views}</td>
-          <td class="">{item.readingTime ?? '-'} min</td>
+          <td class="center">{item.views}</td>
+          <td class="center">{#if item.time != 0}{item.time} min{:else}-{/if}</td>
+          <td class="center">{#if item.reads != 0}{item.reads}{:else}-{/if}</td>
+          <td class="center">{#if item.reads != 0} {ratio(item.reads,item.views)} %{:else}-{/if}</td>
         </tr>
       {/each}
     </tbody>
@@ -34,12 +41,11 @@
 
 <style>
   table.pageviews {
-    width: 40%;
     border-spacing: 0;
     border-collapse: collapse;
   }
 
-  td.views {
+  td.center {
     text-align: center;
     padding-top: 0.2em;
   }

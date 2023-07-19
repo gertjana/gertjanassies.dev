@@ -11,10 +11,14 @@
   import type { PageData } from './$types';
   export let data: PageData;
 
+  import IntersectionObserver from "svelte-intersection-observer";
+  let element: HTMLElement;
+  let intersecting: boolean;
+  
   mermaid.initialize({ theme: 'neutral', startOnLoad: false })
   
   let readingTime = '0';
-  
+
   onMount(async () => {
     mermaidRendered.set(true)
     setTimeout(async () => { await mermaid.run()}, 0)
@@ -46,6 +50,14 @@
     }
   })
 
+  const handleIntersection = async () => { 
+    const resJson = await fetch(`/api/pagereads`, {
+      method: 'POST',
+      body: JSON.stringify({slug: data.post.slug ?? ''}),
+      headers: {'Content-Type': 'application/json' }
+    });
+   }
+
 </script>
 
 <h1>{data.post.title ?? "no title"}</h1>
@@ -66,6 +78,10 @@
 {/if}
 
 <svelte:component this={data.component} />
+
+<IntersectionObserver once {element} on:intersect={handleIntersection} bind:intersecting>
+  <div bind:this={element}></div>
+</IntersectionObserver>
 
 <style>
   div.content {

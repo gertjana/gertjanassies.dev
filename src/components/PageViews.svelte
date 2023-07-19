@@ -6,7 +6,6 @@
 
   let sorted: PageStat[] = data.sort((a, b) => b.views - a.views);
 
-console.log(sorted);
 </script>
 
 

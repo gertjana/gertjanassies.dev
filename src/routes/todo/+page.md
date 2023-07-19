@@ -6,6 +6,7 @@
 
 | TODO's | | |
 | -- | -- | -- |
+| bug | readingtime is not in the same order as views |  <Label type="success" text="done" /> |
 | feature | metrics, reading time | <Label type="success" text="done" /> |
 | feature | metrics, page views  | <Label type="success" text="done" /> |
 | feature | dark/light theme button | <Label type= "info" text="ready" /> | 

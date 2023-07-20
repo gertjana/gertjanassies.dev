@@ -67,6 +67,11 @@ export const incrementPageView: (slug: string) => Promise<number>  = async (slug
 
 /** returns an array of PageStat's */
 export const getPageStats: () => Promise<PageStat[]> = async () => {
+  if (process.env.MIGRATE) {
+    console.log("Migrating page stats");
+    await migrate();
+    console.log("Migration complete");
+  } 
   if (dev) { prefix = "dev"; }
   const keys: string[] = await redis.keys(`${prefix}:post:*:page_stats`);
 
@@ -79,4 +84,34 @@ export const getPageStats: () => Promise<PageStat[]> = async () => {
   });
 
   return stats;
+}
+
+const migrate = async () => {
+  if (dev) { prefix = "dev"; }
+
+  const pageViews = await get(`${prefix}:post:*:views`);
+  const readingTime = await get(`${prefix}:post:*:readingtime`);
+  const pageReads = await get(`${prefix}:post:*:reads`);
+
+  return Array.from(pageViews).forEach((key) => {
+    let pageStat = {
+      views: parseInt(key[1]),
+      time: parseInt(readingTime.get(key[0]) ?? '0'),
+      reads: parseInt(pageReads.get(key[0]) ?? '0')
+    }
+    redis.set(`${prefix}:post:${key[0]}:page_stats`, JSON.stringify(pageStat));
+  });
+}
+
+const get: (slug: string) => Promise<Map<string, string>> = async (query: string) => {
+  const keys = await redis.keys(query);
+  if (keys.length == 0) { return new Map<string, string>(); }
+
+  let result = new Map<string, string>();
+  const key_values = (await redis.mget(...keys)).map((value) => value ?? '0');
+  keys.map((key, index) => {
+    const slug = key.split(':')[2];
+    result.set(slug, key_values[index]);
+  });
+  return result;
 }

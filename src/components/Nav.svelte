@@ -1,6 +1,3 @@
-<script lang="ts">
-</script>
-
 <div class="header-left">
   <a href="/">
     <img src="/logo_ga.svg" alt="logo" height="60">

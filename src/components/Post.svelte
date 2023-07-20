@@ -1,5 +1,6 @@
 <script lang="ts">
   import TagBar from "./TagBar.svelte";
+
   import type { MetaData } from "$lib/types";
 
   /** Post metadata (frontmatter)*/

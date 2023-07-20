@@ -1,30 +1,29 @@
 <script lang="ts">
-  import TagBar from '$src/components/TagBar.svelte';
-  import CopyButton from '$src/components/CopyButton.svelte';
-
-  import { onMount } from 'svelte';
   import { afterNavigate } from '$app/navigation'
-
-  import { mermaidRendered } from '$lib/stores.ts';
+  import CopyButton from '$src/components/CopyButton.svelte';
+  import IntersectionObserver from "svelte-intersection-observer";
   import mermaid from 'mermaid'
+  import { mermaidRendered } from '$lib/stores.ts';
+  import { onMount } from 'svelte';
+  import TagBar from '$src/components/TagBar.svelte';
 
   import type { PageData } from './$types';
+
   export let data: PageData;
 
-  import IntersectionObserver from "svelte-intersection-observer";
   let element: HTMLElement;
   let intersecting: boolean;
   
   mermaid.initialize({ theme: 'neutral', startOnLoad: false })
   
-  let readingTime = '0';
+  let readingTime = 0;
 
   onMount(async () => {
     mermaidRendered.set(true)
     setTimeout(async () => { await mermaid.run()}, 0)
 
-    if (!data.stats.readingTime || data.stats.readingTime === '0') {
-      let postData = {
+    if (!data.stats.readingTime || data.stats.readingTime === 0) {
+      const postData = {
         content: document.querySelector('.content')?.textContent ?? '',
         slug: data.post.slug ?? '',
       }

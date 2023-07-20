@@ -1,6 +1,7 @@
 <script lang="ts">
   import { LightPaginationNav } from 'svelte-paginate';
   import Post from '$src/components/Post.svelte';
+  
   import type { MetaData } from "$lib/types";
 
   /** Array of post MetaData */

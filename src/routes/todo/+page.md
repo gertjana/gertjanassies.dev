@@ -6,6 +6,9 @@
 
 | TODO's | | |
 | -- | -- | -- |
+| feature | share post optionally with shortened link | <Label type= "info" text="ready" /> |
+| feature | pagestats: likes | <Label type= "info" text="ready" /> |
+| refactor | more efficient data structure in redis | <Label type="warning" text="in progress" /> |
 | bug | readingtime is not in the same order as views |  <Label type="success" text="done" /> |
 | feature | metrics, reading time | <Label type="success" text="done" /> |
 | feature | metrics, page views  | <Label type="success" text="done" /> |
@@ -24,7 +27,7 @@
 | feature | support categories |  <Label type="success" text="done" /> |
 | feature | divide into Make and Code |  <Label type="success" text="done" /> |
 | feature | list for tags |  <Label type="success" text="done" /> |
-| feature | sort blog list on date desc |  <Label type="success" text="done" /> |
+| feature | sort blog list on date desc |  <Label type="success" text="done" /> |   
 | feature | List of blogs | <Label type="success" text="done" /> |
 | feature | metadata (frontmatter) at top of markdown files |  <Label type="success" text="done" /> |
 | bug | syntax highligting | <Label type="success" text="done" /> |

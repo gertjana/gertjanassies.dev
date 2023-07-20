@@ -23,6 +23,7 @@
           <th>reading time</th>
           <th>page reads</th>
           <th>read ratio</th>
+          <th>likes</th>
       </tr>
     </thead>
     <tbody>
@@ -33,6 +34,7 @@
           <td class="center">{#if item.time != 0}{item.time} min{:else}-{/if}</td>
           <td class="center">{#if item.reads != 0}{item.reads}{:else}-{/if}</td>
           <td class="center">{#if item.reads != 0} {ratio(item.reads,item.views)} %{:else}-{/if}</td>
+          <td class="center">{item.likes?? '-'}</td>
         </tr>
       {/each}
     </tbody>

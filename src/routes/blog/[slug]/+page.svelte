@@ -5,6 +5,8 @@
   import mermaid from 'mermaid'
   import { mermaidRendered } from '$lib/stores.ts';
   import { onMount } from 'svelte';
+  import { page } from '$app/stores';
+  import Social from '$src/components/Social.svelte';
   import TagBar from '$src/components/TagBar.svelte';
 
   import type { PageData } from './$types';
@@ -22,7 +24,7 @@
     mermaidRendered.set(true)
     setTimeout(async () => { await mermaid.run()}, 0)
 
-    if (!data.stats.readingTime || data.stats.readingTime === 0) {
+    if (!data.stats.reads || data.stats.reads === 0) {
       const postData = {
         content: document.querySelector('.content')?.textContent ?? '',
         slug: data.post.slug ?? '',
@@ -34,7 +36,7 @@
       }).then(res => res.json());
       readingTime = resJson.readingTime;
     } else {
-      readingTime = data.stats.readingTime;
+      readingTime = data.stats.reads;
     }
    });
 
@@ -50,7 +52,7 @@
   })
 
   const handleIntersection = async () => { 
-    const resJson = await fetch(`/api/pagereads`, {
+    await fetch(`/api/pagereads`, {
       method: 'POST',
       body: JSON.stringify({slug: data.post.slug ?? ''}),
       headers: {'Content-Type': 'application/json' }
@@ -59,7 +61,7 @@
 
 </script>
 
-<h1>{data.post.title ?? "no title"}</h1>
+<h1>{data.post.title ?? "no title"}</h1><Social slug={data.post.slug} url={$page.url.toString()} />
 {#if ! data.post.published}
   <span class="draft">DRAFT</span>
 {/if}
@@ -69,7 +71,7 @@
 <div class="content">
   <sub class="date">on {data.post.date ?? "..."}</sub>
   <sub class="author">by {data.post.author ?? "..."}</sub>  
-  <sub class="readingtime">viewed {data.stats.pageviews} times, reading time {readingTime ?? ""} min</sub>
+  <sub class="readingtime">reading time {data.stats.time ?? '-'} min, viewed {data.stats.views} times, read {data.stats.reads ?? '-'} times, liked {data.stats.likes ?? '-'} times</sub>
 </div>
 <br/>
 {#if data.post.image}

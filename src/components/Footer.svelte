@@ -28,5 +28,6 @@
     background: none;
     margin: 0;
     margin-top: 0.5em;
+    cursor: pointer;
   }
 </style>

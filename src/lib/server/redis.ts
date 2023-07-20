@@ -60,10 +60,39 @@ export const incrementPageView: (slug: string) => Promise<number>  = async (slug
     await redis.set(`${prefix}:post:${slug}:page_stats`, JSON.stringify(json));
     return json.views;
   } else {
-    await redis.set(`${prefix}:post:${slug}:page_stats`, JSON.stringify({views: 1, reads: 0, time: 0}));
+    await redis.set(`${prefix}:post:${slug}:page_stats`, JSON.stringify({views: 1, reads: 0, time: 0, likes: 0}));
     return 0;
   }
 }
+
+export const incrementLikes = async (slug:string) => {
+  if (dev) { prefix = "dev"; }
+
+  const pageStat = await redis.get(`${prefix}:post:${slug}:page_stats`);
+
+  if (pageStat != null) {
+    let json: PageStat = JSON.parse(pageStat);
+    json.likes += 1;
+
+    await redis.set(`${prefix}:post:${slug}:page_stats`, JSON.stringify(json));
+
+    return json.likes;
+  } 
+  return 0;
+}
+
+/** gets the stats for one page */
+export const getPageStat = async (slug: string) => {
+  if (dev) { prefix = "dev"; }
+
+  const pageStat = await redis.get(`${prefix}:post:${slug}:page_stats`);
+
+  if (pageStat != null) {
+    return JSON.parse(pageStat);
+  } 
+  return {views: 0, reads: 0, time: 0, likes: 0};
+}
+
 
 /** returns an array of PageStat's */
 export const getPageStats: () => Promise<PageStat[]> = async () => {

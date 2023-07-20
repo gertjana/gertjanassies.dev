@@ -17,6 +17,7 @@ export type PageStat = {
   views: number;
   time: number;
   reads: number;
+  likes: number;
 }
 
 /** type to describe a loaded markdown file with frontmatter metadata */

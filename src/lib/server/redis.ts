@@ -12,6 +12,11 @@ export const getReadingTime: (slug: string) => Promise<number> = async (slug: st
   return parseInt((await redis.get(`${prefix}:post:${slug}:page_stats`)) ?? '0');
 }
 
+type UpdateStatFieldType = <TValue>(slug: string, field: string, value: TValue) => Promise<TValue>;
+type StatNumberFunction = (slug: string) => Promise<number>;
+type PageStatFunction = (slug: string) => Promise<PageStat>;
+type PageStatsFunction = () => Promise<PageStat[]>;
+
 /** Update the reading time by counting the words in the content of the blog article and then dividing it by 200 Words/minute */
 export const updateReadingTime = async (slug: string, content: string) => {
   if (dev) { prefix = "dev"; }
@@ -19,70 +24,31 @@ export const updateReadingTime = async (slug: string, content: string) => {
   const words = content.split(/\s/g).length;
   const readingTime = Math.ceil(words / 200);
 
-  const pageStat = await redis.get(`${prefix}:post:${slug}:page_stats`);
-
-  if (pageStat != null) {
-    let json = JSON.parse(pageStat);
-    json.time = readingTime;
-
-    await redis.set(`${prefix}:post:${slug}:page_stats`, JSON.stringify(json));
-    return json.time;
-  }
-  return readingTime;
+  return updateStatField(slug, "time", readingTime);
 }
 
 /** increment the page reads */
-export const updatePageReads: (slug: string) => Promise<number>  = async (slug: string) => {
+export const incrPageReads: StatNumberFunction = async (slug: string) => {
   if (dev) { prefix = "dev"; }
 
-  const pageStat = await redis.get(`${prefix}:post:${slug}:page_stats`);
-
-  if (pageStat != null) {
-    let json: PageStat = JSON.parse(pageStat);
-    json.reads += 1;
-
-    await redis.set(`${prefix}:post:${slug}:page_stats`, JSON.stringify(json));
-    return json.reads;
-  }
-  return 0; 
+  return incrStatField(slug, "reads", 1);
 }
 
 /** Increments the page views by one */
-export const incrementPageView: (slug: string) => Promise<number>  = async (slug: string) => {
+export const incrementPageView: StatNumberFunction = async (slug: string) => {
   if (dev) { prefix = "dev"; }
 
-  const pageStat = await redis.get(`${prefix}:post:${slug}:page_stats`);
-
-  if (pageStat != null) {
-    let json: PageStat = JSON.parse(pageStat);
-    json.views += 1;
-
-    await redis.set(`${prefix}:post:${slug}:page_stats`, JSON.stringify(json));
-    return json.views;
-  } else {
-    await redis.set(`${prefix}:post:${slug}:page_stats`, JSON.stringify({views: 1, reads: 0, time: 0, likes: 0}));
-    return 0;
-  }
+  return incrStatField(slug, "views", 1);
 }
 
-export const incrementLikes = async (slug:string) => {
+export const incrementLikes: StatNumberFunction = async (slug:string) => {
   if (dev) { prefix = "dev"; }
 
-  const pageStat = await redis.get(`${prefix}:post:${slug}:page_stats`);
-
-  if (pageStat != null) {
-    let json: PageStat = JSON.parse(pageStat);
-    json.likes += 1;
-
-    await redis.set(`${prefix}:post:${slug}:page_stats`, JSON.stringify(json));
-
-    return json.likes;
-  } 
-  return 0;
+  return incrStatField(slug, "likes", 1);
 }
 
 /** gets the stats for one page */
-export const getPageStat = async (slug: string) => {
+export const getPageStat: PageStatFunction = async (slug: string) => {
   if (dev) { prefix = "dev"; }
 
   const pageStat = await redis.get(`${prefix}:post:${slug}:page_stats`);
@@ -95,7 +61,7 @@ export const getPageStat = async (slug: string) => {
 
 
 /** returns an array of PageStat's */
-export const getPageStats: () => Promise<PageStat[]> = async () => {
+export const getPageStats: PageStatsFunction = async () => {
   if (dev) { prefix = "dev"; }
 
   const keys: string[] = await redis.keys(`${prefix}:post:*:page_stats`);
@@ -109,4 +75,35 @@ export const getPageStats: () => Promise<PageStat[]> = async () => {
   });
 
   return stats;
+}
+
+
+const updateStatField: UpdateStatFieldType = async <TValue>(slug: string, field: string, value: TValue) => {
+  if (dev) { prefix = "dev"; }
+
+  console.log("updating stat field", slug, field, value);
+  const stat = await redis.get(`${prefix}:post:${slug}:page_stats`);
+  if (stat != null) {
+    let json = JSON.parse(stat);
+    json[field] = value;
+
+    let result = await redis.set(`${prefix}:post:${slug}:page_stats`, JSON.stringify(json));
+    console.log("result", result);
+    return json[field]; 
+  }
+  return value;
+}
+
+const incrStatField: UpdateStatFieldType = async <TValue>(slug: string, field: string, value: TValue) => {
+  if (dev) { prefix = "dev"; }
+
+  const stat = await redis.get(`${prefix}:post:${slug}:page_stats`);
+  if (stat != null) {
+    let json = JSON.parse(stat);
+    json[field] += value;
+
+    redis.set(`${prefix}:post:${slug}:page_stats`, JSON.stringify(json));
+    return json[field]; 
+  }
+  return value;
 }

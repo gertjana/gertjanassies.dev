@@ -18,12 +18,12 @@
   <table class="pageviews">
     <thead>
       <tr>
-          <th>page</th>
-          <th>views</th>
-          <th>reading time</th>
-          <th>page reads</th>
-          <th>read ratio</th>
-          <th>likes</th>
+          <th title="">page</th>
+          <th title="nr of time the page has been viewed">views</th>
+          <th title="calculated time to read the post based on 200 words/min">reading time</th>
+          <th title="how many times the end of the article was reached">page reads</th>
+          <th title="posts read divided by posts view">read ratio</th>
+          <th title="how much time the like button was clicked">likes</th>
       </tr>
     </thead>
     <tbody>
@@ -31,10 +31,10 @@
         <tr>
           <td>{item.slug}</td>
           <td class="center">{item.views}</td>
-          <td class="center">{#if item.time != 0}{item.time} min{:else}-{/if}</td>
-          <td class="center">{#if item.reads != 0}{item.reads}{:else}-{/if}</td>
-          <td class="center">{#if item.reads != 0} {ratio(item.reads,item.views)} %{:else}-{/if}</td>
-          <td class="center">{item.likes?? '-'}</td>
+          <td class="center">{#if item.time  ?? 0 != 0}      {item.time} min                  {:else} - {/if}</td>
+          <td class="center">{#if item.reads ?? 0 != 0}      {item.reads}                     {:else} - {/if}</td>
+          <td class="center">{#if item.reads ?? 0 != 0}      {ratio(item.reads,item.views)} % {:else} - {/if}</td>
+          <td class="center">{#if item.likes ?? 0 != 0}      {item.likes}                     {:else} - {/if}</td>
         </tr>
       {/each}
     </tbody>

@@ -6,8 +6,9 @@
 
 | TODO's | | |
 | -- | -- | -- |
-| feature | share post optionally with shortened link | <Label type= "info" text="ready" /> |
-| feature | pagestats: likes | <Label type= "info" text="in progress" /> |
+| bug | pageviews increments no longer working  | <Label type="success" text="done" /> |
+| feature | share post optionally with shortened link | <Label type="success" text="done" /> |
+| feature | pagestats: likes | <Label type="success" text="done" /> |
 | refactor | more efficient data structure in redis | <Label type="success" text="done" /> |
 | bug | readingtime is not in the same order as views |  <Label type="success" text="done" /> |
 | feature | metrics, reading time | <Label type="success" text="done" /> |

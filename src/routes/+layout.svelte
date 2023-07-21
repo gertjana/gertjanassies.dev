@@ -26,7 +26,6 @@
     <meta name="color-scheme" content={$theme == 'system' ? 'light dark' : $theme}/> 
   </svelte:head>
   
-
   <Nav />
   
   <div class="content">

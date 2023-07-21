@@ -1,10 +1,10 @@
-import { updatePageReads } from '$src/lib/server/redis.js'
+import { incrPageReads } from '$src/lib/server/redis.js'
 
 /** POST /api/pagereads from frontend when the end of the article is read */
 export const POST = async ({request }) => {
   const data = await request.json();
 
-  let pageReads = await updatePageReads(data.slug);
+  let pageReads = await incrPageReads(data.slug);
 
   return new Response(JSON.stringify({ pageReads: pageReads }), {
     status: 200,

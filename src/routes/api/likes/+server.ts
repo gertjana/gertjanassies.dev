@@ -6,7 +6,6 @@ export const POST = async ({request }) => {
 
   let likes = await incrementLikes(data.slug);
 
-  console.log(likes);
   return new Response(JSON.stringify({ likes: likes }), {
     status: 200,
     headers: {

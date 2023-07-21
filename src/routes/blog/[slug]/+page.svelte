@@ -24,7 +24,7 @@
     mermaidRendered.set(true)
     setTimeout(async () => { await mermaid.run()}, 0)
 
-    if (!data.stats.reads || data.stats.reads === 0) {
+    if (!data.stats.time || data.stats.time === 0) {
       const postData = {
         content: document.querySelector('.content')?.textContent ?? '',
         slug: data.post.slug ?? '',
@@ -36,7 +36,7 @@
       }).then(res => res.json());
       readingTime = resJson.readingTime;
     } else {
-      readingTime = data.stats.reads;
+      readingTime = data.stats.time;
     }
    });
 

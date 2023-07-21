@@ -16,7 +16,6 @@ export const load: PageServerLoad = async ({ params }) => {
 
   let stats: PageStat = await getPageStat(slug);
  
-  console.log(stats);
   return {
     post,
     stats,

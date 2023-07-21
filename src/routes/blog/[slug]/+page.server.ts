@@ -1,6 +1,6 @@
 import { posts } from '$lib/server/posts';
 import { error } from '@sveltejs/kit';
-import { getPageStat } from '$lib/server/redis';
+import { incrementPageView } from '$lib/server/redis';
 
 import type { PageServerLoad } from './$types';
 import type { PageStat } from '$lib/types';
@@ -14,7 +14,7 @@ export const load: PageServerLoad = async ({ params }) => {
     throw error(404, `Post: '${slug}' not found!`);
   }
 
-  let stats: PageStat | undefined = await getPageStat(slug);
+  let stats = await incrementPageView(slug);
  
   return {
     post,

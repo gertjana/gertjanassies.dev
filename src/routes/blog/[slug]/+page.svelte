@@ -24,7 +24,7 @@
     mermaidRendered.set(true)
     setTimeout(async () => { await mermaid.run()}, 0)
 
-    if (!data.stats.time || data.stats.time === 0) {
+    if (!data.stats?.time || data.stats?.time === 0) {
       const postData = {
         content: document.querySelector('.content')?.textContent ?? '',
         slug: data.post.slug ?? '',
@@ -71,7 +71,7 @@
 <div class="content">
   <sub class="date">on {data.post.date ?? "..."}</sub>
   <sub class="author">by {data.post.author ?? "..."}</sub>  
-  <sub class="readingtime">reading time {data.stats.time ?? '-'} min, viewed {data.stats.views} times, read {data.stats.reads ?? '-'} times, liked {data.stats.likes ?? '-'} times</sub>
+  <sub class="readingtime">reading time {data.stats?.time ?? '-'} min, viewed {data.stats?.views} times, read {data.stats?.reads ?? '-'} times, liked {data.stats?.likes ?? '-'} times</sub>
 </div>
 <br/>
 {#if data.post.image}

@@ -7,44 +7,37 @@ const connection = process.env.REDIS_CONNECTION ?? "redis://localhost:6379";
 
 const redis = new Redis(connection);    
 
+type UpdatePageStatFunction  = (slug: string) => Promise<PageStat | undefined>;
+type PageStatFunction        = (slug: string) => Promise<PageStat | undefined>;
+type PageStatsFunction       = () => Promise<PageStat[]>;
+type UpdateFieldFunction     = (slug: string, f: (stat:PageStat) => PageStat) => Promise<PageStat | undefined>;
+
 /** Gets the calculated reading time for a blog post */
 export const getReadingTime: (slug: string) => Promise<number> = async (slug: string) => {
   return parseInt((await redis.get(`${prefix}:post:${slug}:page_stats`)) ?? '0');
 }
 
-type UpdateStatFieldType = <TValue>(slug: string, field: string, value: TValue) => Promise<TValue>;
-type StatNumberFunction = (slug: string) => Promise<number>;
-type PageStatFunction = (slug: string) => Promise<PageStat>;
-type PageStatsFunction = () => Promise<PageStat[]>;
-
 /** Update the reading time by counting the words in the content of the blog article and then dividing it by 200 Words/minute */
 export const updateReadingTime = async (slug: string, content: string) => {
-  if (dev) { prefix = "dev"; }
-
   const words = content.split(/\s/g).length;
   const readingTime = Math.ceil(words / 200);
 
-  return updateStatField(slug, "time", readingTime);
+  return updateField(slug, (stat) => { stat.time = readingTime; return stat; } );
 }
 
 /** increment the page reads */
-export const incrPageReads: StatNumberFunction = async (slug: string) => {
-  if (dev) { prefix = "dev"; }
-
-  return incrStatField(slug, "reads", 1);
+export const incrPageReads: UpdatePageStatFunction = async (slug: string) => {
+  return updateField(slug, (stat) => { stat.reads++; return stat; });
 }
 
 /** Increments the page views by one */
-export const incrementPageView: StatNumberFunction = async (slug: string) => {
-  if (dev) { prefix = "dev"; }
-
-  return incrStatField(slug, "views", 1);
+export const incrementPageView: UpdatePageStatFunction = async (slug: string) => {
+  return updateField(slug, (stat) => { stat.views++; return stat; });
 }
 
-export const incrementLikes: StatNumberFunction = async (slug:string) => {
-  if (dev) { prefix = "dev"; }
-
-  return incrStatField(slug, "likes", 1);
+/* Increments the likes by one */
+export const incrementLikes: UpdatePageStatFunction = async (slug:string) => {
+  return updateField(slug, (stat) => { stat.likes++; return stat; });
 }
 
 /** gets the stats for one page */
@@ -56,9 +49,8 @@ export const getPageStat: PageStatFunction = async (slug: string) => {
   if (pageStat != null) {
     return JSON.parse(pageStat);
   } 
-  return {views: 0, reads: 0, time: 0, likes: 0};
+  return undefined;
 }
-
 
 /** returns an array of PageStat's */
 export const getPageStats: PageStatsFunction = async () => {
@@ -77,33 +69,18 @@ export const getPageStats: PageStatsFunction = async () => {
   return stats;
 }
 
-
-const updateStatField: UpdateStatFieldType = async <TValue>(slug: string, field: string, value: TValue) => {
-  if (dev) { prefix = "dev"; }
-
-  console.log("updating stat field", slug, field, value);
-  const stat = await redis.get(`${prefix}:post:${slug}:page_stats`);
-  if (stat != null) {
-    let json = JSON.parse(stat);
-    json[field] = value;
-
-    let result = await redis.set(`${prefix}:post:${slug}:page_stats`, JSON.stringify(json));
-    console.log("result", result);
-    return json[field]; 
-  }
-  return value;
-}
-
-const incrStatField: UpdateStatFieldType = async <TValue>(slug: string, field: string, value: TValue) => {
+const updateField: UpdateFieldFunction = async (slug: string, f: (stat:PageStat) => PageStat): Promise<PageStat | undefined> => {
   if (dev) { prefix = "dev"; }
 
   const stat = await redis.get(`${prefix}:post:${slug}:page_stats`);
   if (stat != null) {
-    let json = JSON.parse(stat);
-    json[field] += value;
+    let pageStat = JSON.parse(stat);
 
-    redis.set(`${prefix}:post:${slug}:page_stats`, JSON.stringify(json));
-    return json[field]; 
+    pageStat = f(pageStat);
+
+    let result = await redis.set(`${prefix}:post:${slug}:page_stats`, JSON.stringify(pageStat));
+    if (result != "OK") { return undefined; }
+    return pageStat; 
   }
-  return value;
+  return undefined;
 }

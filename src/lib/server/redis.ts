@@ -48,8 +48,19 @@ export const getPageStat: PageStatFunction = async (slug: string) => {
 
   if (pageStat != null) {
     return JSON.parse(pageStat);
-  } 
-  return undefined;
+  } else {
+    return insertPageStat(slug);
+  }
+}
+
+export const insertPageStat: PageStatFunction = async (slug: string) => {
+  if (dev) { prefix = "dev"; }
+
+  const stat: PageStat = { slug: slug, reads: 0, views: 0, likes: 0, time: 0};
+  
+  let result = await redis.set(`${prefix}:post:${slug}:page_stats`, JSON.stringify(stat));
+  if (result != "OK") { return undefined; }
+  return stat;
 }
 
 /** returns an array of PageStat's */

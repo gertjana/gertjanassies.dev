@@ -1,6 +1,6 @@
-import { incrementPageView } from "$src/lib/server/redis";
+import { getClient, incrementPageView } from "$src/lib/server/redis";
 
 export const load = async () => {
-  await incrementPageView("todo");
+  await incrementPageView(getClient(), "todo");
   return {};
 }

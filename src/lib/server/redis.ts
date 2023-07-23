@@ -3,63 +3,60 @@ import { dev } from '$app/environment';
 import type { PageStat } from '$lib/types';
 
 let prefix = "prod";
-const connection = process.env.REDIS_CONNECTION ?? "redis://localhost:6379";
 
-const redis = new Redis(connection);    
+type UpdatePageStatFunction  = (client: Redis, slug: string) => Promise<PageStat | undefined>;
+type PageStatFunction        = (client: Redis, slug: string) => Promise<PageStat | undefined>;
+type PageStatsFunction       = (client: Redis) => Promise<PageStat[]>;
+type UpdateFieldFunction     = (client: Redis, slug: string, f: (stat:PageStat) => PageStat) => Promise<PageStat | undefined>;
 
-type UpdatePageStatFunction  = (slug: string) => Promise<PageStat | undefined>;
-type PageStatFunction        = (slug: string) => Promise<PageStat | undefined>;
-type PageStatsFunction       = () => Promise<PageStat[]>;
-type UpdateFieldFunction     = (slug: string, f: (stat:PageStat) => PageStat) => Promise<PageStat | undefined>;
 
-/** Gets the calculated reading time for a blog post */
-// export const getReadingTime: (slug: string) => Promise<number> = async (slug: string) => {
-//   return parseInt((await redis.get(`${prefix}:post:${slug}:page_stats`)) ?? '0');
-// }
+export const getClient = () => {
+  return new Redis(process.env.REDIS_CONNECTION ?? '');
+};
 
 /** Update the reading time by counting the words in the content of the blog article and then dividing it by 200 Words/minute */
-export const updateReadingTime = async (slug: string, content: string) => {
+export const updateReadingTime = async (client: Redis, slug: string, content: string) => {
   const words = content.split(/\s/g).length;
   const readingTime = Math.ceil(words / 200);
 
-  return updateField(slug, (stat) => { stat.time = readingTime; return stat; } );
+  return updateField(client, slug, (stat) => { stat.time = readingTime; return stat; } );
 }
 
 /** increment the page reads */
-export const incrPageReads: UpdatePageStatFunction = async (slug: string) => {
-  return updateField(slug, (stat) => { stat.reads++; return stat; });
+export const incrementPageReads: UpdatePageStatFunction = async (client: Redis, slug: string) => {
+  return updateField(client, slug, (stat) => { stat.reads++; return stat; });
 }
 
 /** Increments the page views by one */
-export const incrementPageView: UpdatePageStatFunction = async (slug: string) => {
-  return updateField(slug, (stat) => { stat.views++; return stat; });
+export const incrementPageView: UpdatePageStatFunction = async (client: Redis, slug: string) => {
+  return updateField(client, slug, (stat) => { stat.views++; return stat; });
 }
 
 /* Increments the likes by one */
-export const incrementLikes: UpdatePageStatFunction = async (slug:string) => {
-  return updateField(slug, (stat) => { stat.likes++; return stat; });
+export const incrementLikes: UpdatePageStatFunction = async (client: Redis, slug:string) => {
+  return updateField(client, slug, (stat) => { stat.likes++; return stat; });
 }
 
 /** gets the stats for one page */
-export const getPageStat: PageStatFunction = async (slug: string) => {
+export const getPageStat: PageStatFunction = async (client: Redis, slug: string) => {
   if (dev) { prefix = "dev"; }
 
-  const pageStat = await redis.get(`${prefix}:post:${slug}:page_stats`);
+  const pageStat = await client.get(`${prefix}:post:${slug}:page_stats`);
 
   if (pageStat != null) {
     return JSON.parse(pageStat);
   } else {
-    return {slug: slug, reads: 0, views: 0, likes: 0, time: 0};
+    return undefined;
   }
 }
 
 /** returns an array of PageStat's */
-export const getPageStats: PageStatsFunction = async () => {
+export const getPageStats: PageStatsFunction = async (client: Redis) => {
   if (dev) { prefix = "dev"; }
 
-  const keys: string[] = await redis.keys(`${prefix}:post:*:page_stats`);
+  const keys: string[] = await client.keys(`${prefix}:post:*:page_stats`);
 
-  const values = (await redis.mget(...keys)).map((value) => value ?? '{}'); 
+  const values = (await client.mget(...keys)).map((value) => value ?? '{}'); 
 
   const stats = keys.map((key, index) => {
     const pageStat = JSON.parse(values[index]) as PageStat;
@@ -70,10 +67,10 @@ export const getPageStats: PageStatsFunction = async () => {
   return stats;
 }
 
-const updateField: UpdateFieldFunction = async (slug: string, f: (stat:PageStat) => PageStat): Promise<PageStat | undefined> => {
+const updateField: UpdateFieldFunction = async (client: Redis, slug: string, f: (stat:PageStat) => PageStat): Promise<PageStat | undefined> => {
   if (dev) { prefix = "dev"; }
 
-  let stat = await redis.get(`${prefix}:post:${slug}:page_stats`);
+  let stat = await client.get(`${prefix}:post:${slug}:page_stats`);
   if (stat == null) {
     stat = JSON.stringify({slug: slug, reads: 0, views: 0, likes: 0, time: 0});
   }
@@ -81,7 +78,7 @@ const updateField: UpdateFieldFunction = async (slug: string, f: (stat:PageStat)
   let pageStat = JSON.parse(stat);
   pageStat = f(pageStat);
 
-  let result = await redis.set(`${prefix}:post:${slug}:page_stats`, JSON.stringify(pageStat));
+  let result = await client.set(`${prefix}:post:${slug}:page_stats`, JSON.stringify(pageStat));
   if (result != "OK") { return undefined; }
   return pageStat; 
 }

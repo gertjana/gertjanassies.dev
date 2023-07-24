@@ -1,10 +1,10 @@
 <script lang="ts">
   import TagBar from "./TagBar.svelte";
 
-  import type { MetaData } from "$lib/types";
+  import type { PostMetaData } from "$lib/types";
 
   /** Post metadata (frontmatter)*/
-  export let metadata: MetaData;
+  export let metadata: PostMetaData;
 </script>
 
 <article class="post">

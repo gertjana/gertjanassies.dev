@@ -1,5 +1,5 @@
 /** Post metadata, consist of all the data in the frontmatter plus the slug of the post */
-export type MetaData = {
+export type PostMetaData = {
   title: string;
   summary: string;
   date: string;
@@ -22,7 +22,7 @@ export type PageStat = {
 
 /** type to describe a loaded markdown file with frontmatter metadata */
 export type GlobEntry = {
-  metadata: MetaData;
+  metadata: PostMetaData;
   default: unknown;
 }
   

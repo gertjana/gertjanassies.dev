@@ -1,18 +1,18 @@
-import {beforeEach, afterEach, describe, expect, it, vi, beforeAll} from 'vitest';
-import { incrementPageView, incrementPageReads, incrementLikes, getPageStat, getPageStats, updateReadingTime } from './redis';
+import {beforeEach, describe, expect, it } from 'vitest';
+import { incrementPageView, incrementPageReads, incrementLikes, getPageStat, getPageStats, updateReadingTime } from '$lib/server/redis';
 import Redis  from 'ioredis-mock';
 
 describe("the persistence layer should", () => {
-    const redis = new Redis();
+    const mocked_redis = new Redis();
   
-    const pageStat = { slug: "test", views: 10, reads: 3, likes: 1, time: 6 };
+    const test_pagestat = { slug: "test", views: 10, reads: 3, likes: 1, time: 6 };
     
     const expected_non_existent_stat = { slug: "non-existent", views: 1, reads: 0, likes: 0, time: 0 };
     const expected_increased_pageviews = { slug: "test", views: 11, reads: 3, likes: 1, time: 6 };
     const expected_increased_pagereads = { slug: "test", views: 10, reads: 4, likes: 1, time: 6 };
     const expected_increased_likes = { slug: "test", views: 10, reads: 3, likes: 2, time: 6 };
     const expected_reading_time = { slug: "test", views: 10, reads: 3, likes: 1, time: 3 };
-    const expected_stats = [pageStat, expected_non_existent_stat];
+    const expected_stats = [test_pagestat, expected_non_existent_stat];
 
     const content = `
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. In luctus ornare est ac dignissim. Pellentesque consequat leo eget dolor pellentesque, lacinia fringilla libero tincidunt. Nulla aliquam dui dui, id tristique felis eleifend quis. Sed ac aliquet tellus. Nunc congue tempor dolor, quis consectetur eros. Mauris tincidunt magna purus, vel semper lorem vulputate ac. Interdum et malesuada fames ac ante ipsum primis in faucibus. Mauris rhoncus metus libero, ut accumsan sem dapibus vitae. Suspendisse imperdiet eu diam quis vestibulum. Nulla purus tellus, cursus ac quam sit amet, rhoncus elementum nulla. Integer accumsan, tellus ut pretium egestas, ligula lectus maximus tellus, at feugiat diam ligula sit amet felis. Aliquam consequat magna tortor, et pulvinar lectus dapibus ut.
@@ -25,47 +25,46 @@ describe("the persistence layer should", () => {
     `
 
     beforeEach(() => {
-      redis.set("dev:post:test:page_stats", JSON.stringify(pageStat));
+      mocked_redis.set("dev:post:test:page_stats", JSON.stringify(test_pagestat));
     });
 
     it("increase the pageviews when incrementPageView() is called", async () => {
-      const new_stats = await incrementPageView(redis, "test");
+      const new_stats = await incrementPageView(mocked_redis, "test");
       expect(new_stats).toStrictEqual(expected_increased_pageviews);
     })
     
     it("increase the pagereads when incrementPageReads() is called", async () => {
-      const new_stats = await incrementPageReads(redis, "test");
+      const new_stats = await incrementPageReads(mocked_redis, "test");
       expect(new_stats).toStrictEqual(expected_increased_pagereads);
     })
 
     it("increase the likes when incrementLikes() is called", async () => {
-      const new_stats = await incrementLikes(redis, "test");
+      const new_stats = await incrementLikes(mocked_redis, "test");
       expect(new_stats).toStrictEqual(expected_increased_likes);
     })
 
     it("create a new pagestat when incrementPageview() is called with a slug that doesn't exist", async () => {
-      const new_stats = await incrementPageView(redis, "non-existent");
+      const new_stats = await incrementPageView(mocked_redis, "non-existent");
       expect(new_stats).toStrictEqual(expected_non_existent_stat);
     })
 
     it("calculates reading time when updateReadintTime() is called", async () => {
-      const new_stats = await updateReadingTime(redis, "test", content);
+      const new_stats = await updateReadingTime(mocked_redis, "test", content);
       expect(new_stats).toStrictEqual(expected_reading_time);
     })
 
     it("return the PageStat when provided a slug", async () => {
-      const new_stat = await getPageStat(redis, "test");
-      expect(new_stat).toStrictEqual(pageStat);
+      const new_stat = await getPageStat(mocked_redis, "test");
+      expect(new_stat).toStrictEqual(test_pagestat);
     })
 
     it("return undefined when provided a slug that doesn't exist", async () => {
-      const new_stat = await getPageStat(redis, "out-of-this-world");
+      const new_stat = await getPageStat(mocked_redis, "out-of-this-world");
       expect(new_stat).toBe(undefined);
     })
 
     it("return an array of PageStats", async () => {
-      const stats = await getPageStats(redis);
-      expect(stats.length).toBe(2);
+      const stats = await getPageStats(mocked_redis);
       expect(stats).toStrictEqual(expected_stats);
     })
   });

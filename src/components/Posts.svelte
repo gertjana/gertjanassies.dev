@@ -2,10 +2,10 @@
   import { LightPaginationNav } from 'svelte-paginate';
   import Post from '$src/components/Post.svelte';
   
-  import type { MetaData } from "$lib/types";
+  import type { PostMetaData } from "$lib/types";
 
   /** Array of post MetaData */
-  export let posts: MetaData[];
+  export let posts: PostMetaData[];
 
   /** tag to filter posts on */
   export let tag : string;
@@ -23,7 +23,7 @@
 
   let pageSize = size
 
-  const paginate = (posts: MetaData[], pageSize: number, currentPage: number) => {
+  const paginate = (posts: PostMetaData[], pageSize: number, currentPage: number) => {
     return posts.slice((currentPage - 1) * pageSize, (currentPage - 1) * pageSize + pageSize);
   }
 
@@ -35,7 +35,7 @@
     });
   } else if (tag && tag != "all") {
     posts = posts.filter(post => {
-      return post.tags.indexOf(tag) != -1
+      return post.tags.split(",").map(t => t.trim()).includes(tag);
     });
   }
   $: paginatedPosts = paginate(posts, pageSize, currentPage)

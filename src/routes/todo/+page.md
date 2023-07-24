@@ -6,6 +6,9 @@
 
 | TODO's | | |
 | -- | -- | -- |
+| feature | audience/user/guest specific metrics | <Label type= "info" text="ready" /> |
+| bug | (found with tests) fixed bug where filtering on tags also include tags that contain part of the searchterm | <Label type="success" text="done" /> |
+| test | added tests for the redis layer, Post and Posts components | <Label type="success" text="done" /> |
 | bug | pageviews increments no longer working  | <Label type="success" text="done" /> |
 | feature | share post optionally with shortened link | <Label type="success" text="done" /> |
 | feature | pagestats: likes | <Label type="success" text="done" /> |

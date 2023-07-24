@@ -30,6 +30,8 @@ This blog is made with
 * [sveltekit](https://kit.svelte.dev)
   * [svelte](https://svelte.dev) - UI Framework
   * [vite](https://vitejs.dev/) - frontend tooling
+  * [vitest](https://vitest.dev) - Testing framework
+  * [testing-library](https://testing-library.com/) - helps with testing Svelte Components
 * [typescript](https://www.typescriptlang.org/)
 * [mdsvex](https://mdsvex.pngwn.io/) - renders markdown
   * [prism.js](https://prismjs.com/) - syntax highlighting code blocks in markdown

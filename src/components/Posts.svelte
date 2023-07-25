@@ -4,7 +4,7 @@
   
   import type { PostMetaData } from "$lib/types";
 
-  /** Array of post MetaData */
+  /** Array of posts MetaData */
   export let posts: PostMetaData[];
 
   /** tag to filter posts on */

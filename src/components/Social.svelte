@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-
   export let slug: string;
   export let url: string;
 
@@ -18,7 +16,6 @@
   }
 
 </script>
-
 
 <div class="social">
     <span title="click to like">

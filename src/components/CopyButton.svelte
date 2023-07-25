@@ -1,7 +1,10 @@
 <script lang="ts">
+  import { browser } from '$app/environment';
   const copy = (e: Event) => {
     let element: HTMLButtonElement = e.target as HTMLButtonElement;
-    navigator.clipboard.writeText(element.textContent ?? '') 
+    if (browser ) {
+      navigator.clipboard.writeText(element.textContent ?? '') 
+    } 
   }
 </script>
 

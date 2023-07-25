@@ -1,6 +1,7 @@
 import {beforeEach, describe, expect, it } from 'vitest';
 import { incrementPageView, incrementPageReads, incrementLikes, getPageStat, getPageStats, updateReadingTime } from '$lib/server/redis';
 import Redis  from 'ioredis-mock';
+import { getClient } from '$lib/server/redis';
 
 describe("the persistence layer should", () => {
     const mocked_redis = new Redis();
@@ -27,6 +28,11 @@ describe("the persistence layer should", () => {
     beforeEach(() => {
       mocked_redis.set("dev:post:test:page_stats", JSON.stringify(test_pagestat));
     });
+
+    it("returns a client when asked for one", async () => {
+      const client = await getClient();
+      expect(client).toBeDefined();
+    })
 
     it("increase the pageviews when incrementPageView() is called", async () => {
       const new_stats = await incrementPageView(mocked_redis, "test");

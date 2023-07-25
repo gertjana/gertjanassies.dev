@@ -67,6 +67,7 @@ export const getPageStats: PageStatsFunction = async (client: Redis) => {
   return stats;
 }
 
+/** applies the function to the page stat, create a new stat if it doesn't exist */
 const updateField: UpdateFieldFunction = async (client: Redis, slug: string, f: (stat:PageStat) => PageStat): Promise<PageStat | undefined> => {
   if (dev) { prefix = "dev"; }
 
@@ -75,8 +76,7 @@ const updateField: UpdateFieldFunction = async (client: Redis, slug: string, f: 
     stat = JSON.stringify({slug: slug, reads: 0, views: 0, likes: 0, time: 0});
   }
 
-  let pageStat = JSON.parse(stat);
-  pageStat = f(pageStat);
+  let pageStat = f(JSON.parse(stat));
 
   let result = await client.set(`${prefix}:post:${slug}:page_stats`, JSON.stringify(pageStat));
   if (result != "OK") { return undefined; }

@@ -6,6 +6,7 @@
 
 | TODO's | | |
 | -- | -- | -- |
+| feature | click on picture in blog, shows an overlay with the original sized image | <Label type= "warning" text="in progress" /> |
 | feature | audience/user/guest specific metrics | <Label type= "info" text="ready" /> |
 | bug | (found with tests) fixed bug where filtering on tags also include tags that contain part of the searchterm | <Label type="success" text="done" /> |
 | test | added tests for the redis layer, Post and Posts components | <Label type="success" text="done" /> |

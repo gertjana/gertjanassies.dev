@@ -19,7 +19,6 @@ describe("The application should", () => {
         let button = screen.getByRole('button')
         await fireEvent.click(button)
         
-        button = screen.getByRole('button')
     })
 
     it("render the Footer component correctly", async () => {

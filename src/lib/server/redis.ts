@@ -10,8 +10,14 @@ type PageStatsFunction       = (client: Redis) => Promise<PageStat[]>;
 type UpdateFieldFunction     = (client: Redis, slug: string, f: (stat:PageStat) => PageStat) => Promise<PageStat | undefined>;
 
 
-export const getClient = () => {
-  return new Redis(process.env.REDIS_CONNECTION ?? '');
+export const getClient: () => Promise<Redis | undefined> = async () => {
+ const connection = process.env.REDIS_CONNECTION;
+
+  if (connection) {
+    return new Redis(connection);
+  } else {
+    return undefined;
+  }
 };
 
 /** Update the reading time by counting the words in the content of the blog article and then dividing it by 200 Words/minute */

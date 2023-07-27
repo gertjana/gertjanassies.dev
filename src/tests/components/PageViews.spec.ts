@@ -17,14 +17,13 @@ describe("The application should", () => {
         expect(container.querySelectorAll("table tbody tr")).toHaveLength(2);
 
         //sorted on page views
-        expect(container.querySelector("table tbody:nth-child(2) tr:nth-child(1) td")?.innerHTML).toStrictEqual("slug2");
-        expect(container.querySelector("table tbody:nth-child(2) tr:nth-child(2) td")?.innerHTML).toStrictEqual("slug1");
+        expect(container.querySelector("table tbody:nth-child(2) tr:nth-child(1) td a")?.innerHTML).toStrictEqual("slug2");
+        expect(container.querySelector("table tbody:nth-child(2) tr:nth-child(2) td a")?.innerHTML).toStrictEqual("slug1");
     })
 
     it("renders 'no pageviews yet' when there are no pageviews", async () => {
         let { container } = render(PageViews, { props: { data: [] } });
 
-        console.log(container.innerHTML);
         expect(screen.getByText("No pageviews yet.")).toBeDefined;
     })
 })

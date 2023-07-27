@@ -17,11 +17,8 @@ describe("the persistence layer should", () => {
 
     const content = `
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. In luctus ornare est ac dignissim. Pellentesque consequat leo eget dolor pellentesque, lacinia fringilla libero tincidunt. Nulla aliquam dui dui, id tristique felis eleifend quis. Sed ac aliquet tellus. Nunc congue tempor dolor, quis consectetur eros. Mauris tincidunt magna purus, vel semper lorem vulputate ac. Interdum et malesuada fames ac ante ipsum primis in faucibus. Mauris rhoncus metus libero, ut accumsan sem dapibus vitae. Suspendisse imperdiet eu diam quis vestibulum. Nulla purus tellus, cursus ac quam sit amet, rhoncus elementum nulla. Integer accumsan, tellus ut pretium egestas, ligula lectus maximus tellus, at feugiat diam ligula sit amet felis. Aliquam consequat magna tortor, et pulvinar lectus dapibus ut.
-
     Proin in urna ac nulla vestibulum porttitor eget sed nunc. Mauris ultrices ullamcorper consequat. Nulla a sagittis nisi. Cras nunc libero, interdum sit amet ligula nec, mollis laoreet lacus. Ut ipsum arcu, condimentum vitae varius eu, dictum ut arcu. Pellentesque eget nisi erat. Nunc efficitur tincidunt arcu nec volutpat. Nulla lacinia, justo ut iaculis vestibulum, purus risus vestibulum mi, sit amet rutrum risus quam at risus.
-    
     Donec malesuada elit in dolor maximus pulvinar ac nec odio. In sollicitudin a urna vel vulputate. Quisque molestie, massa vel vulputate lobortis, enim lectus vestibulum erat, ac interdum tortor libero nec mi. Mauris vestibulum, diam ac sollicitudin convallis, arcu neque bibendum sem, in iaculis orci ex sed nibh. Pellentesque vel feugiat sem. Aliquam sit amet magna tortor. Vivamus varius ipsum et ante ullamcorper, eu vehicula felis vestibulum. Fusce placerat mauris et elit elementum dignissim. Nunc sed fermentum tortor, pulvinar lobortis urna. Praesent mattis metus eu est sagittis hendrerit. Praesent efficitur pulvinar felis, a aliquet nisi faucibus ac. Vestibulum blandit quis nisi sit amet vehicula. Sed efficitur libero et fringilla ultricies.
-    
     Nulla a velit volutpat, pharetra diam a, blandit enim. Sed vel eros volutpat, molestie elit vitae, ultricies orci. Nunc nunc dui, ultrices non ligula ut, ullamcorper viverra nulla. Sed odio magna, dapibus consequat nunc eu, sollicitudin porta nunc. Integer volutpat tempus mi at fringilla. Ut quis tortor ut mi congue lacinia. Sed ut ex vitae risus sollicitudin gravida. Curabitur in arcu ac sem posuere facilisis. Curabitur condimentum mollis arcu, quis feugiat erat porta dignissim. Nulla vel sagittis odio. Nulla facilisi. Sed sollicitudin elit in eros tempus consectetur. Aliquam fermentum suscipit massa faucibus ultricies.  
     `
 
@@ -31,7 +28,13 @@ describe("the persistence layer should", () => {
 
     it("returns a client when asked for one", async () => {
       const client = await getClient();
-      expect(client).toBeDefined();
+      expect(client).toBeUndefined();
+
+      process.env['REDIS_CONNECTION'] = "redis://localhost:6379";
+
+      const client2 = await getClient();
+      expect(client2).toBeDefined();
+
     })
 
     it("increase the pageviews when incrementPageView() is called", async () => {

@@ -117,17 +117,10 @@
       padding-top: 2em;
     }
 
-    :global(div.content h1, div.content h2, div.content h3) {
+    :global(div.content h1, div.content h2, div.content h3, div.content h4, div.content h5) {
       font-family: RedHatText;
       font-weight: 400;
       // margin: 0;
       margin-top: 1em;
-    }
-
-    :global(span.katex-html) {
-    visibility: hidden;
-    }
-    :global(math) {
-      font-size: 1.5em;
     }
   </style>

@@ -32,7 +32,6 @@ describe("A post should", () => {
   it('render correctly', async () => {
     let {container} = render(Posts, { props: { posts: postsMetaData, tag: "all", category: "", size: 2, showPagination: false  } });
 
-    expect(screen.getAllByRole("article")).toBeTruthy();
     expect(container.querySelectorAll("article article")).toHaveLength(2);
     expect(screen.getByText(postsMetaData[0].title).innerHTML).toStrictEqual("title");
     expect(screen.getByText(postsMetaData[1].title).innerHTML).toStrictEqual("title2");

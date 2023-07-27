@@ -1,5 +1,6 @@
 <script lang="ts">
   import  type { PageStat } from '$lib/types';
+    import { to_number } from 'svelte/internal';
 
   /** Array of PageView's */
   export let data: PageStat[];
@@ -29,7 +30,13 @@
     <tbody>
       {#each sorted as item}
         <tr>
-          <td>{item.slug}</td>
+          <td>
+            {#if parseInt(item.slug.charAt(0))}
+              <a href="/blog/{item.slug}">{item.slug}</a>
+            {:else}
+            <a href="/{item.slug}">{item.slug}</a>
+            {/if}
+          </td>
           <td class="center">{item.views}</td>
           <td class="center">{#if item.time  ?? 0 != 0}      {item.time} min                  {:else} - {/if}</td>
           <td class="center">{#if item.reads ?? 0 != 0}      {item.reads}                     {:else} - {/if}</td>

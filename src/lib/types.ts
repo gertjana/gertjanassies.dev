@@ -9,6 +9,7 @@ export type PostMetaData = {
   image: string;
   slug: string;
   published: boolean;
+  image_attribution?: string;
 }
   
 /** Type to describe Page stats  */

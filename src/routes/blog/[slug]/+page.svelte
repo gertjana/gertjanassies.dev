@@ -8,6 +8,7 @@
   import { page } from '$app/stores';
   import Social from '$src/components/Social.svelte';
   import TagBar from '$src/components/TagBar.svelte';
+  import { Lightbox } from 'svelte-lightbox';
 
   import type { PageData } from './$types';
 
@@ -43,10 +44,8 @@
   afterNavigate(() => {
     for (const node of document.querySelectorAll('pre > code')) {
       new CopyButton({ 
-        target: node,
-        props: {
-          content: node.textContent ?? '',
-        },
+        target: node, 
+        props: { content: node.textContent ?? '' } 
       })
     }
   })
@@ -74,8 +73,13 @@
   <sub class="readingtime">reading time {data.stats?.time ?? '-'} min, viewed {data.stats?.views} times, read {data.stats?.reads ?? '-'} times, liked {data.stats?.likes ?? '-'} times</sub>
 </div>
 <br/>
+
 {#if data.post.image}
-  <img src="{data.post.image}" alt="{data.post.title}"/>
+  <div class="image">
+    <Lightbox description="{data.post.image_attribution ?? ''}" showCloseButton={false}>
+      <img src="{data.post.image}" alt="{data.post.title}"/>
+    </Lightbox>  
+  </div>
 {/if}
 
 <svelte:component this={data.component} />
@@ -115,7 +119,7 @@
     float: right;
     margin-right: 0.5em;
   }
-  img {
+  div.image {
     float:right;
     width:25%;
     margin-left: 2em;
@@ -136,5 +140,25 @@
     color: var(--text);
     font-size: 0.8em;
     cursor: pointer;
+  }
+  :global(span.katex-html) {
+    visibility: hidden;
+    }
+    :global(math) {
+      font-size: 1.5em;
+  }
+
+  :global(div.svelte-lightbox-footer h5) {
+    padding-left: 0.2em;
+    padding-top: 0.2em;
+    margin:0em;
+  }
+  :global(div.svelte-lightbox-footer h2) {
+    margin:0em;
+    padding: 0em;
+  }
+
+  :global(div.svelte-lightbox-footer h5 a) {
+    color: var(--accent-3-light);
   }
 </style>

@@ -1,5 +1,5 @@
 ---
-title: How to Use AWS Services from EKS with Fine-grained Access Control
+title: How to use AWS services from EKS with fine-grained access control
 author: Gertjan Assies
 date: "2022-11-02"
 category: code
@@ -66,7 +66,7 @@ As you can see once the service account role bindings are set up the following e
 | ENV var | description |
 | -- | -- |
 | AWS_ROLE_ARN | The Role to assume |
-| AWS_WEB_IDENTITY_TOKEN_FILE | the file location containing a token to authenticate against the OIDC Provider |
+| AWS_WEB_IDENTITY_TOKEN_FILE | the file location containing a token to authenticate against |
 
 Hopefully, I've given you some ideas on how to run AWS workloads in EKS.
 

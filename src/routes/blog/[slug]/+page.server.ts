@@ -13,7 +13,7 @@ export const load: PageServerLoad = async ({ params }) => {
     throw error(404, `Post: '${slug}' not found!`);
   }
 
-  const stats = await incrementPageView(getClient(), slug);
+  const stats = await incrementPageView(await getClient(), slug);
  
   return {
     post,

@@ -1,6 +1,7 @@
 import {describe, expect, it} from 'vitest';
 import { render, screen, cleanup } from '@testing-library/svelte';
-import Posts  from '$src/components/Posts.svelte';
+import Posts from '$src/components/Posts.svelte';
+import paginate from '$src/components/Posts.svelte';
 
 import type { PostMetaData } from '$src/lib/types';
 
@@ -71,6 +72,14 @@ describe("A post should", () => {
 
     expect(container.querySelectorAll("article article")).toHaveLength(1);
     expect(screen.getByText(postsMetaData[1].title).innerHTML).toStrictEqual("title2");
+  })
+
+  it("paginate correctly", async () => {
+    const posts = new Posts({ target: document.body, props: { posts: postsMetaData, tag: "all", category: "", size: 1, showPagination: true  } });
+    const paginate = posts.getPaginate();
+
+    
+    expect(paginate).toHaveLength(2);
   })
 })
 

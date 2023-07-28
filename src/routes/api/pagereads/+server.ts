@@ -5,7 +5,7 @@ import type { RequestEvent } from './$types';
 export const POST = async ({request}:RequestEvent) => {
   const data = await request.json();
 
-  let pageStat = await incrementPageReads(getClient(), data.slug);
+  let pageStat = await incrementPageReads(await getClient(), data.slug);
 
   return new Response(JSON.stringify(pageStat), {
     status: 200,

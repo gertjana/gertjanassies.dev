@@ -23,7 +23,7 @@
 
   let pageSize = size
 
-  const paginate = (posts: PostMetaData[], pageSize: number, currentPage: number) => {
+  export const paginate = (posts: PostMetaData[], pageSize: number, currentPage: number) => {
     return posts.slice((currentPage - 1) * pageSize, (currentPage - 1) * pageSize + pageSize);
   }
 

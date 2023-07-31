@@ -8,9 +8,20 @@
 </script>
   
   <svelte:head>
+
     {#if dev}
       <title>DEV gertjanassies.dev</title> 
     {:else}
+      <!-- Google tag (gtag.js) -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-7T2NS9G924"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+  
+        gtag('config', 'G-7T2NS9G924');
+      </script>    
+
       <title>gertjanassies.dev</title> 
     {/if}
     <meta name="description" content="Gertjan Assies personal blog" />

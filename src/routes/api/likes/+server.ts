@@ -5,7 +5,7 @@ import type { RequestEvent } from './$types';
 export const POST = async ({request}:RequestEvent) => {
   const data = await request.json();
 
-  let likes = await incrementLikes(getClient(), data.slug);
+  let likes = await incrementLikes(await getClient(), data.slug);
 
   return new Response(JSON.stringify({ likes: likes }), {
     status: 200,

@@ -14,7 +14,6 @@
     await navigator.clipboard.writeText(url);
     alert(`Copied ${url} to clipboard`);
   }
-
 </script>
 
 <div class="social">

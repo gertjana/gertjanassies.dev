@@ -76,10 +76,10 @@ describe("A post should", () => {
 
   it("paginate correctly", async () => {
     const posts = new Posts({ target: document.body, props: { posts: postsMetaData, tag: "all", category: "", size: 1, showPagination: true  } });
-    const paginate = posts.getPaginate();
-
     
-    expect(paginate).toHaveLength(2);
+    const paginated = posts.paginate(postsMetaData, 1, 1);
+
+    expect(paginated).toHaveLength(1);
   })
 })
 

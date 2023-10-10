@@ -21,7 +21,7 @@ and when he doesn't have time for those things, he sleeps or works as an Site Re
 
 ## find me online at these places
 
-<OnlinePlaces />
+<OnlinePlaces size="3em" />
 
 ## About this blog
 

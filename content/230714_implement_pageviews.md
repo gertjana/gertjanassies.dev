@@ -3,7 +3,7 @@ title: Implement page stats
 author: Gertjan Assies
 date: "2023-07-14"
 category: code
-tags: svelte, typescript, statistic, redis, featured
+tags: svelte, typescript, statistic, redis
 published: true
 image: "/images/implementing_pageviews.jpg"
 summary: "Implementing Page stats starting with a PageView counter using Sveltekit and a Redis backend."

@@ -40,7 +40,7 @@
   <Nav />
   
   <div class="content">
-    <main in:fade>
+    <main in:fade|global>
       <slot />
     </main>
   </div>

@@ -15,8 +15,9 @@ const config = {
   },
 
   preprocess: [
+    mdsvex(mdsvexConfig),
     preprocess({ typescript: true, scss: true}),
-    mdsvex(mdsvexConfig)],
+  ]
 };
 
 export default config;

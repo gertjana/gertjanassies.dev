@@ -31,7 +31,7 @@
         gtag('config', 'G-7T2NS9G924');
       </script>    
 
-      <title>${title}</title> 
+      <title>{title}</title> 
     {/if}
     <meta name="description" content="Gertjan Assies personal blog" />
     <meta name="keywords" content="Gertjan Assies, blog, personal, code, make, technology, programming, maker, 3dprint" />

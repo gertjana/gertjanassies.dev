@@ -5,12 +5,21 @@
   import { dev } from '$app/environment';
 
   import { theme } from '$lib/stores.ts';
+
+  import type { PageData } from './$types';
+  
+  export let data: PageData;
+
+  let title: string = "gertjanassies.dev";
+  title += data.tag ? ` - T:${data.tag}` : "";
+  title += data.category ? ` - C:${data.category}` : "";
+
 </script>
   
   <svelte:head>
 
     {#if dev}
-      <title>DEV gertjanassies.dev</title> 
+      <title>DEV {title}</title> 
     {:else}
       <!-- Google tag (gtag.js) -->
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-7T2NS9G924"></script>
@@ -22,7 +31,7 @@
         gtag('config', 'G-7T2NS9G924');
       </script>    
 
-      <title>gertjanassies.dev</title> 
+      <title>${title}</title> 
     {/if}
     <meta name="description" content="Gertjan Assies personal blog" />
     <meta name="keywords" content="Gertjan Assies, blog, personal, code, make, technology, programming, maker, 3dprint" />

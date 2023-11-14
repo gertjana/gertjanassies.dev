@@ -151,7 +151,7 @@ so here's some code that gets the list of posts in this blog
     export type MetaData = {
         title: number;
         summary: string;
-        date: string;
+        date: string;   
         author: string;
         tags: string;
         category: string;

@@ -11,8 +11,8 @@
   export let data: PageData;
 
   let title: string = "gertjanassies.dev";
-  title += data.tag ? ` - T:${data.tag}` : "";
-  title += data.category ? ` - C:${data.category}` : "";
+  title += data.tag ? ` - tag:${data.tag}` : "";
+  title += data.category ? ` - category:${data.category}` : "";
 
 </script>
   
@@ -33,7 +33,8 @@
 
       <title>{title}</title> 
     {/if}
-    <meta name="description" content="Gertjan Assies personal blog" />
+    
+    <meta name="description" content="Gertjan Assies personal blog, articles, about coding and the maker space, sometimes other things that interest me." />
     <meta name="keywords" content="Gertjan Assies, blog, personal, code, make, technology, programming, maker, 3dprint" />
     <meta name="author" content="Gertjan Assies" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -41,6 +42,9 @@
     <meta property="og:description" content="Gertjan Assies personal blog" />
     <meta property="og:image" content="https://gertjanassies.dev/logo_ga.svg" />
     <meta property="og:url" content="https://gertjanassies.dev" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:creator" content="@major7" />
     <meta name="robots" content="index, follow, archive" />
 
     <meta name="color-scheme" content={$theme == 'system' ? 'light dark' : $theme}/> 

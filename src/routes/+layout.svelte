@@ -143,7 +143,7 @@
 
     :global(div.content h1, div.content h2, div.content h3, div.content h4, div.content h5) {
       font-family: RedHatText;
-      font-weight: 400;
+      font-weight: 600;
       // margin: 0;
       margin-top: 1em;
     }

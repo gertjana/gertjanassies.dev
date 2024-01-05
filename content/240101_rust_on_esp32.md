@@ -25,11 +25,13 @@ What they also did was create a bunch of rust crates that allows access to the c
 
 There are two modes to write your code, `no_std` and `std`
 
-With the no_std, you cannot use Rust its standard library, which makes your application smaller, but you have to do everything yourself, there are peripheral access and hardware abstraction crates and crates to setup wifi, logging, storage, etc, these are very much device specific. but you have to do all the wiring up.
+With the `no_std`, you cannot use Rust its standard library, which makes your application smaller, but you have to do everything yourself, there are peripheral access and hardware abstraction crates and crates to setup wifi, logging, storage, etc, these are very much device specific. but you have to do all the wiring up.
 
 Therefore I will focus on the higher level `std` approach which allows the use of all the goodies the standard library brings, plus more device independent abstractions which makes the code much more portable to other ESP32 devices.
 
 ## Application model
+
+The application model for the `std` mode look like this:
 
 <Lightbox><img alt="Application Model" src="/images/application_model_light.png" style="float:left" /></Lightbox>
 
@@ -43,12 +45,18 @@ The following libraries are made available
 | embedded-hal | device independent api and common traits for the hardware |
 | esp-idf-sys | unsafe bindings to the ESP hardware and features |
 
-how that all fits together you can see in the Application model on the left
+A filtered out dependency tree from `cargo tree` shows how the libraries depend on each other
 
-The `esp-idf-svc` layer depends of the `esp-idf-hal` and the `esp-idf-sys` layer 
-
-while the the `esp-idf-hal` depends on the `esp-idf-sys`
-
+```
+├── embedded-svc v0.26.4
+├── esp-idf-hal v0.42.5
+│   ├── embedded-hal v0.2.7
+│   ├── esp-idf-sys v0.33.7
+├── esp-idf-svc v0.47.3
+│   ├── embedded-svc v0.26.4
+│   ├── esp-idf-hal v0.42.5
+    ├── esp-idf-sys v0.33.7
+```
 <br style="clear:both;" />
 
 ## Use case 
@@ -61,7 +69,7 @@ For this I need to control GPIO (General Purpose Input Output) Pins to enable ch
 
 ### hardware
 
-I decided to use a M5 Stamp C3U that I had lying around which is based on the ESP-32 C3U chip, a 1 core 32 bits RISC-V cpu running on 160Mhz
+I decided to use a [M5 Stamp C3U](http://docs.m5stack.com/en/core/stamp_c3u) that I had lying around which is based on the ESP-32 C3U chip, a 1 core 32 bits RISC-V cpu running on 160Mhz
 It has 400Kb RAM and 4Mb Flash and has Wifi and Bluetooth capabilities
 
 There are 14 GPIO Pins, that can be setup als digital or analog input/ouput, and some of them use serial protocols like UART, I2C, I2S and SPI
@@ -71,7 +79,7 @@ so plenty to play around with
 
 To get started I used the cookiecutter template Espressif has created: https://github.com/esp-rs/esp-idf-template
 
-This should also be your startingpoint, if you want to play with it yourselves.
+This should also be your starting point, if you want to play with it yourselves.
 
 After installing the prerequisites a simple
 
@@ -85,14 +93,14 @@ to build and flash it hook up your device to an usb port and do
 
 ```sh
 > cargo build
+   Compiling rust-esp32c3 v0.1.0 (/Users/gertjan/Projects/rust-esp32c3)
+    Finished dev [optimized + debuginfo] target(s) in 1.96s
 ```
 
 and then 
 
 ```sh
 > espflash flash target/<architecture>-esp-espidf/debug/<project-name>
-   Compiling rust-esp32c3 v0.1.0 (/Users/gertjan/Projects/rust-esp32c3)
-    Finished dev [optimized + debuginfo] target(s) in 1.96s
 [2024-01-04T12:53:07Z INFO ] Detected 4 serial ports
 [2024-01-04T12:53:07Z INFO ] Ports which match a known common dev board are highlighted
 [2024-01-04T12:53:07Z INFO ] Please select a port

@@ -48,7 +48,6 @@ The following libraries are made available
 A filtered out dependency tree from `cargo tree` shows how the libraries depend on each other
 
 ```
-├── embedded-svc v0.26.4
 ├── esp-idf-hal v0.42.5
 │   ├── embedded-hal v0.2.7
 │   ├── esp-idf-sys v0.33.7

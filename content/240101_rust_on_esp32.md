@@ -267,7 +267,7 @@ fn main() -> Result {
 }
 ```
 
-In the code linked [here](https://github.com/gertjana/charger_rust_esp32_c3/blob/main/src/main.rs), I combined all the above in an application that runs on the ESP32-C3U and will cycle through all the charger states when the onboard button is pressed. showing the correct color on the onboard led and output the charger state in the console.
+In the code linked at the bottom, I combined all the above in an application that runs on the ESP32-C3U and will cycle through all the charger states when the onboard button is pressed. showing the correct color on the onboard led and output the charger state in the console.
 
 Proofing that you can run Rust on an ESP32, access the hardware and run code concurently while being able to access shared objects.
 

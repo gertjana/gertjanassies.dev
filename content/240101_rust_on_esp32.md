@@ -17,7 +17,6 @@ For the last couple of months, I've been learning myself how to program in [rust
 
 The main reason was I was intrigued by Rust's ownership / borrow model, which allows for functional programming, without the need of making everything immutable, which comes with copying values all over the place, which can become an issue when you want to sqeeze every bit of performance out of your application.
 
-
 As rust is considered more of a systems language, being close to the hardware, using it to write applications for microconntrollers makes sense.
 
 Luckily the makers of the ESP 32 chip [espressif](https://www.espressif.com/en/products/socs/esp32) also created and maintain a development environment for these chips.
@@ -47,20 +46,21 @@ The following libraries are made available
 
 A filtered out dependency tree from `cargo tree` shows how the libraries depend on each other
 
-```
+```sh
 ├── esp-idf-hal v0.42.5
 │   ├── embedded-hal v0.2.7
 │   ├── esp-idf-sys v0.33.7
 ├── esp-idf-svc v0.47.3
 │   ├── embedded-svc v0.26.4
 │   ├── esp-idf-hal v0.42.5
-    ├── esp-idf-sys v0.33.7
+|   ├── esp-idf-sys v0.33.7
 ```
+
 <br style="clear:both;" />
 
-## Use case 
+## Use case
 
-As my daily work is all about allowing EV Drivers to charge their cars, I've decided to make a EV charger 
+As my daily work is all about allowing EV Drivers to charge their cars, I've decided to make a small EV charger
 
 For this I need to control GPIO (General Purpose Input Output) Pins to enable charging (relay), lock the cable (solenoid), display the charger state (multicolor led) and communicate to a backend (MQTT / IoT)
 
@@ -69,14 +69,15 @@ For this I need to control GPIO (General Purpose Input Output) Pins to enable ch
 ### hardware
 
 I decided to use a [M5 Stamp C3U](http://docs.m5stack.com/en/core/stamp_c3u) that I had lying around which is based on the ESP-32 C3U chip, a 1 core 32 bits RISC-V cpu running on 160Mhz
+
 It has 400Kb RAM and 4Mb Flash and has Wifi and Bluetooth capabilities
 
 There are 14 GPIO Pins, that can be setup als digital or analog input/ouput, and some of them use serial protocols like UART, I2C, I2S and SPI
 so plenty to play around with
 
-### setup 
+### setup
 
-To get started I used the cookiecutter template Espressif has created: https://github.com/esp-rs/esp-idf-template
+To get started I used the cookiecutter template Espressif has created: <https://github.com/esp-rs/esp-idf-template>
 
 This should also be your starting point, if you want to play with it yourselves.
 
@@ -92,14 +93,14 @@ to build and flash it hook up your device to an usb port and do
 
 ```sh
 > cargo build
-   Compiling rust-esp32c3 v0.1.0 (/Users/gertjan/Projects/rust-esp32c3)
+   Compiling rust-esp-charger v0.1.0 (/Users/gertjan/Projects/rust-esp-charger)
     Finished dev [optimized + debuginfo] target(s) in 1.96s
 ```
 
-and then 
+and then:
 
 ```sh
-> espflash flash target/<architecture>-esp-espidf/debug/<project-name>
+> espflash flash target/riscv32imc-esp-espidf/debug/rust-esp-charger
 [2024-01-04T12:53:07Z INFO ] Detected 4 serial ports
 [2024-01-04T12:53:07Z INFO ] Ports which match a known common dev board are highlighted
 [2024-01-04T12:53:07Z INFO ] Please select a port
@@ -121,13 +122,13 @@ App/part. size:    559,520/4,128,768 bytes, 13.55%
 
 ```
 
-If you do 
+If you do
 
-```
+```sh
 > espflash monitor
 ```
 
-It will show you all the messages logged to the console, you can also add `--monitor` to the flash command to do it in one go 
+It will show you all the messages logged to the console, you can also add `--monitor` to the flash command to do it in one go
 
 ## The Code
 
@@ -137,7 +138,7 @@ As the C code IDF Framwork is based on the FreeRTOS Kernel, I knew about things 
 
 But as I can use the standard library, `std::thread::spawn` is available to which I can pass a closure, but how to communicate changes?
 
-When you access a variable in the closure that is defined outside of the closure the compile will make you use the `move` keyword to explicitly move ownership to the closure.
+When you access a variable in the closure that is defined outside of the closure the compiler will make you use the `move` keyword to explicitly move ownership to the closure.
 
 So for instance: if you have a simple `Charger` struct that has a field `state`, which holds the state of the charger (Available, Occupied, Charging, Error)
 and you want to access that from within the thread, the compiler will complain about the last line that the charger's ownership has moved to the thread. as seen in the snippet below
@@ -155,9 +156,10 @@ thread:spawn(move || {
 
 println!("Charger from main: {:?}", charger);
 ```
+
 To solve this we need to use two concepts from rust synchronisation utilities.
 
-* `std::sync::Arc<T>` Arc stands for Atomically Reference Counted, This will keep a reference for each time you clone the object, and makes sure the original object is updated with any changes. 
+* `std::sync::Arc<T>` Arc stands for Atomically Reference Counted, This will keep a reference for each time you clone the object, and makes sure the original object is updated with any changes.
 * `std::sync::Mutex<T>` A Mutex will lock the object so only one thread can update the object at a time
 
 So to get the above working:
@@ -187,7 +189,7 @@ Now how to control the leds, relays, buttons that are needed to make this charge
 
 That's done through the "General Purpose Input Output" or GPIO, working with GPIO is pretty straightforward:
 
-here we turn a led on when a button is pressed.
+Here we turn a led on when a button is pressed.
 
 ```rust
 use esp_idf_hal::delay::FreeRtos;
@@ -248,7 +250,7 @@ loop {
 }            
 ```
 
-We can do this in a separate thread so it won't block the rest
+We do this in a separate thread so it won't block the rest
 
 The M5 Stamp that i'm using has an onboard multicolor led (SK6812 chip) attached to a gpio port, there is a rust library for that and other multicolor led, or ledstrips call `smart_leds`
 
@@ -265,7 +267,7 @@ fn main() -> Result {
 }
 ```
 
-In the code linked here https://github.com/gertjana/charger_rust_esp32_c3/blob/main/src/main.rs, I combined all the above in an application that runs on the ESP32-C3U and will cycle through all the charger states when the onboard button is pressed. showing the correct color on the onboard led and output the charger state in the console.
+In the code linked [here](https://github.com/gertjana/charger_rust_esp32_c3/blob/main/src/main.rs), I combined all the above in an application that runs on the ESP32-C3U and will cycle through all the charger states when the onboard button is pressed. showing the correct color on the onboard led and output the charger state in the console.
 
 Proofing that you can run Rust on an ESP32, access the hardware and run code concurently while being able to access shared objects.
 
@@ -277,10 +279,8 @@ Thanks for reading, the next articles will most likely extend on this and be abo
 
 ## References
 
- * Code: https://github.com/gertjana/charger_rust_esp32_c3/blob/main/src/main.rs
- * esp-idf-template: https://github.com/esp-rs/esp-idf-template
- * M5 Stamp ESP32-C3U: https://docs.m5stack.com/en/core/stamp_c3u
- * The embedded rust book:  https://docs.rust-embedded.org/book/
- * Espresiff ESP-32: https://www.espressif.com/en/products/socs/esp32
-
-
+* Code: https://github.com/gertjana/charger_rust_esp32_c3/blob/main/src/main.rs
+* esp-idf-template: https://github.com/esp-rs/esp-idf-template
+* M5 Stamp ESP32-C3U: https://docs.m5stack.com/en/core/stamp_c3u
+* The embedded rust book:  https://docs.rust-embedded.org/book/
+* Espresiff ESP-32: https://www.espressif.com/en/products/socs/esp32

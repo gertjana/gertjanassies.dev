@@ -10,7 +10,7 @@
 <article class="post">
   <h3><a href="/blog/{metadata.slug}">{metadata.title ?? "no title"}</a></h3>
   <section class="tags">
-    <TagBar path="/blog" tags="{metadata.tags}" category="{metadata.category}" />
+    <TagBar path="/blog" tags="{metadata.tags}" categories="{metadata.category}" />
   </section>
   <section class="content">
     {#if metadata.image}
@@ -56,7 +56,8 @@
   img {
     float:left;
     width: 150px;
-    margin-top: 1em;
+    margin-top: 1em;  
     margin-right: 1em;
+    margin-bottom: 3em;
   }
 </style>

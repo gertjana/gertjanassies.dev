@@ -65,7 +65,7 @@
   <span class="draft">DRAFT</span>
 {/if}
 <div class="tags">
-  <TagBar path="/blog" tags="{data.post.tags}" category="{data.post.category}" />
+  <TagBar path="/blog" tags="{data.post.tags}" categories="{data.post.category}" />
 </div>
 <div class="content">
   <sub class="date">on {data.post.date ?? "..."}</sub>

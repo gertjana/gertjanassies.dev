@@ -2,7 +2,7 @@
 title: Rust on ESP32 
 author: Gertjan Assies
 date: "2024-01-04"
-category: code
+category: code, make
 tags: rust, embedded, esp32, featured
 published: true
 image: "/images/rust_on_esp32.png"
@@ -123,6 +123,8 @@ App/part. size:    559,520/4,128,768 bytes, 13.55%
 [2024-01-04T12:54:13Z INFO ] Flashing has completed!
 
 ```
+
+The target might differ depending on the type of your ESP32 , but the rest should be the same.
 
 If you do
 

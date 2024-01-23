@@ -5,7 +5,7 @@
   export let tags: string;
 
   /** Category */
-  export let category: string;
+  export let categories: string;
   
   /** Base Path to the page the tag/category should link too */
   export let path: string;
@@ -16,6 +16,8 @@
     <Tag path={path} type="tag" text="{tag.trim()}" />
   {/each}
 {/if}
-{#if category}
-  <Tag path={path} type="category" text="{category.trim()}" />
+{#if categories}
+  {#each categories.split(', ') as category}
+    <Tag path={path} type="category" text="{category.trim()}" />
+  {/each}
 {/if}

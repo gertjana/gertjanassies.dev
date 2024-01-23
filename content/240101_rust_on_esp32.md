@@ -15,16 +15,18 @@ summary: "Creating applications for ESP32 microcontrollers with the power of the
 
 For the last couple of months, I've been learning myself how to program in [rust](https://rustlang.org)
 
-The main reason was I was intrigued by Rust's ownership / borrow model, which allows for functional programming, without the need of making everything immutable, which comes with copying values all over the place, which can become an issue when you want to sqeeze every bit of performance out of your application.
+The main reason was I was intrigued by Rust's ownership / borrow model, which allows for functional programming, without the need of making everything immutable.
 
-As rust is considered more of a systems language, being close to the hardware, using it to write applications for microconntrollers makes sense.
+Immutable comes with copying values (instead of passing references) all over the place, which can become an issue when you want to sqeeze every bit of performance out of your application.
+
+As rust is considered more of a systems language, being close to the hardware, using it to write applications for microcontrollers makes sense.
 
 Luckily the makers of the ESP 32 chip [espressif](https://www.espressif.com/en/products/socs/esp32) also created and maintain a development environment for these chips.
 What they also did was create a bunch of rust crates that allows access to the chip hardware and features.
 
 There are two modes to write your code, `no_std` and `std`
 
-With the `no_std`, you cannot use Rust its standard library, which makes your application smaller, but you have to do everything yourself, there are peripheral access and hardware abstraction crates and crates to setup wifi, logging, storage, etc, these are very much device specific. but you have to do all the wiring up.
+With the `no_std`, you cannot use Rust its standard library, which makes your application smaller, but you have to do a lot yourself, there are peripheral access and hardware abstraction crates and crates to setup wifi, logging, storage, etc, these are very much device specific. but you have to do all the wiring up.
 
 Therefore I will focus on the higher level `std` approach which allows the use of all the goodies the standard library brings, plus more device independent abstractions which makes the code much more portable to other ESP32 devices.
 
@@ -261,7 +263,7 @@ use ws2812_esp32_rmt_driver::{LedPixelEsp32Rmt, RGBW8};
 
 fn main() -> Result {
     let driver = LedPixelEsp32Rmt::<RGBW8, LedPixelColorGrbw32>::new(0, 2)?; //Onboard led is attached to pin2
-    let red = RGBW8::from((0, 0, 255, White(0)));
+    let red = RGBW8::from((255, 0, 0, White(0)));
     let color = std::iter::repeat(red).take(1);
     driver.write(color)?;
 }

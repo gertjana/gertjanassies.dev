@@ -283,7 +283,7 @@ Thanks for reading, the next articles will most likely extend on this and be abo
 
 ## References
 
-* Code: https://github.com/gertjana/charger_rust_esp32_c3/blob/main/src/main.rs
+* Code: https://github.com/gertjana/charger_rust_esp32_c3/tree/806cba4c933c5211d2c4f4759c223452b8426158
 * esp-idf-template: https://github.com/esp-rs/esp-idf-template
 * M5 Stamp ESP32-C3U: https://docs.m5stack.com/en/core/stamp_c3u
 * The embedded rust book:  https://docs.rust-embedded.org/book/

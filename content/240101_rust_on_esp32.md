@@ -273,9 +273,9 @@ fn main() -> Result {
 
 In the code linked at the bottom, I combined all the above in an application that runs on the ESP32-C3U and will cycle through all the charger states when the onboard button is pressed. showing the correct color on the onboard led and output the charger state in the console.
 
-Proofing that you can run Rust on an ESP32, access the hardware and run code concurently while being able to access shared objects.
+Proving that you can run Rust on an ESP32, access the hardware and run code concurrently while being able to access shared objects.
 
-Thanks for reading, the next articles will most likely extend on this and be about:
+Thanks for reading, the next articles will most likely expand on this and be about:
 
 * Controlling a minimal hardware setup for a charger (Relay, Led, Button) based on the charger's state
 * Setup Wifi and MQTT to communicate with a backend, using the OCPP protocol

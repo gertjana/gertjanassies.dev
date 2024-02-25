@@ -6,7 +6,7 @@ category: code, make
 tags: rust, embedded, esp32, featured
 published: true
 image: "/images/rusty_charger.webp"
-summary: "Creating a simple EV Charger with an ESP32 microcontrollers using the Rust programming language."
+summary: "Focusing on the minimal hardware needed to build an EV Charger with Rust on a ESP32"
 ---
 
 <script lang="ts">

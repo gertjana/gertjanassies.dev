@@ -32,7 +32,10 @@ Putting all this into a schematic it looks something like this
 
 ## State Machine
 
-The stages a Charger goes through (Available, Occupied, Charging, Error) so creating a small FSM (Finite State Machine) looks like good way to model this.
+As a Charger goes through several states during it's operation (Available, Occupied, Charging, Error) 
+a FSM (Finite State Machine) looks like a good way to model this.
+
+A FSM works as follows:
 
 Whenever something happens (an InputEvent), a cable gets inserted/removed or some form of authentication is provided, a transision is made from one state to the next, resulting in an output event, for instance to tell the charger to lock the cable and start charging.
 
@@ -44,23 +47,23 @@ code wise that will look like this:
 
 ```rust
 impl Charger {
-    pub fn transition(&mut self, input: ChargerInput) -> Result<(State, Option<ChargerOutput>, Error) {
+    pub fn transition(&mut self, input: ChargerInput) -> Result<(State, ChargerOutput), Error) {
         let output = match (input, self.state.clone()) {
             (ChargerInput::PlugIn, State::Available) => {
                 self.set_state(State::Occupied);
-                Some(ChargerOutput::Unlocked)
+                ChargerOutput::Unlocked
             }
             (ChargerInput::PlugOut, State::Occupied) => {
                 self.set_state(State::Available);
-                Some(ChargerOutput::Unlocked)
+                ChargerOutput::Unlocked
             }
             (ChargerInput::Swipe, State::Occupied) => {
                 self.set_state(State::Charging);
-                Some(ChargerOutput::LockedAndPowerIsOn)
+                ChargerOutput::LockedAndPowerIsOn
             }
             (ChargerInput::Swipe, State::Charging) => {
                 self.set_state(State::Occupied);
-                Some(ChargerOutput::Unlocked)
+                ChargerOutput::Unlocked
             }
             _ => {
                 Err("An invalid transistion occurred")
@@ -92,9 +95,9 @@ So now all it left is a bit of logic to do the transitions whenever an event hap
 
 <Lightbox><img alt="Application Model" src="/images/pullupresistor.png" style="float:right;margin-left:20px;" /></Lightbox>
 
-The GPIO Port the button is connected to, is configured as input with an pull-up resistor with the button connected to ground, meaning whenever the button is pressed, it will set the input to 0 and when released the pull-up resistor will 'pull' it to 1 again (creating a Positive Edge (0 -> 1) event)
+The GPIO Port is configured as input with an pull-up resistor with the button connected to ground, meaning whenever the button is pressed, it will connect the input to ground (0) and when released the pull-up resistor will 'pull' it to teh +5V (1) again (creating a Positive Edge (0 -> 1) event).
 
-As we have configured the button in the code to subscribe to a positive edge event, the code will unblock whenever the button is released
+As we have configured the button in the code to subscribe to a positive edge event, the code will unblock whenever the button is released.
 
 We then call the transition function with the current state and the input event `Swipe` which will give us a new state `Chargng` and a output `LockedAndPowerIsOn`, we then set the hardware to whatever the output is telling us.
 

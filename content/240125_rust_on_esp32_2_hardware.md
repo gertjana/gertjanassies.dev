@@ -15,9 +15,7 @@ summary: "Focusing on the minimal hardware needed to build an EV Charger with Ru
 
 The previous [article](/blog/240101_rust_on_esp32) was about try-ing to get Rust running on a esp32 microcontroller.
 
-Now a smaller blog that speaks a bit about the hardware.
-
-In there I started to set it up as a charger for an Electric Vehicle, lets dive in to that by desiging the hardware
+In there I started to set up as a charger for an Electric Vehicle, lets dive more into that by desiging the hardware
 
 A simple as possible charger should:
 
@@ -25,7 +23,7 @@ A simple as possible charger should:
  * be able to lock the cable with a solenoid (or simulated by a led)
  * Allow swiping a card to start charging (or simulated with a button)
  * Have a relay to apply power to the cable
- * Have a multicolor led to display the state of the charger (the M5 Stamp has a multicolor led onboard)
+ * Visualize the state of the charger (the M5 Stamp has a multicolor led onboard)
 
 Putting all this into a schematic it looks something like this
 
@@ -34,9 +32,9 @@ Putting all this into a schematic it looks something like this
 
 ## State Machine
 
-The stages a Charger goes through (Available, Occupied, Charging, Error) so creating a smell FSM (Finite State Machine) looks like good way to model this.
+The stages a Charger goes through (Available, Occupied, Charging, Error) so creating a small FSM (Finite State Machine) looks like good way to model this.
 
-Whenever something happens (an InputEvent), a cable gets inserted/removed or some form of authentication is provided, a transision is made from one state to the next, resulting in an output event, for instance to tell the charger to lock the cable and start charging whenever the charged is in a Occupied state.
+Whenever something happens (an InputEvent), a cable gets inserted/removed or some form of authentication is provided, a transision is made from one state to the next, resulting in an output event, for instance to tell the charger to lock the cable and start charging.
 
 ![FSM](/images/charger_eps32_state_diagram.png)
 
@@ -103,5 +101,11 @@ We then call the transition function with the current state and the input event 
 
 So that's the hardware done, the next article will focus on Sending and retrieving OCPP Messages to a backend by configuring the Wifi and MQTT Publisher and Subscriber
 
+## references
+* Code: https://github.com/gertjana/charger_rust_esp32_c3/tree/cad15fb3a088cdd82d7dbfd5f9d16512b37e4d6f
+* esp-idf-template: https://github.com/esp-rs/esp-idf-template
+* M5 Stamp ESP32-C3U: https://docs.m5stack.com/en/core/stamp_c3u
+* The embedded rust book:  https://docs.rust-embedded.org/book/
+* Espresiff ESP-32: https://www.espressif.com/en/products/socs/esp32
 
 

@@ -33,7 +33,7 @@ A simple as possible charger should:
 
 Putting all this into a schematic it looks something like this:
 
-![Schematic](/images/schematic.png)
+![Schematic](/images/schematic2.png)
 
 ## Managing State
 

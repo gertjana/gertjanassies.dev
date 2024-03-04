@@ -13,6 +13,12 @@ summary: "Creating applications for ESP32 microcontrollers with the power of the
     import { Lightbox } from 'svelte-lightbox';
 </script>
 
+> This is a series of articles about using Rust to program an ESP32 Microcontroller by building a minimal EV Charger.<br/>
+>  * Part 1: [A Proof of Concept](/blog/240101_rust_on_esp32) (this article)
+>  * Part 2: [A minimal EV Charger hardware setup](/blog/240125_rust_on_esp32_2_hardware)
+>  * Part 3: Network and Charger to backoffice communication (Wifi/ MQTT / OCPP)
+>  * Part 4: Optional: Charger to Car communication (Mode2) 
+
 For the last couple of months, I've been learning myself how to program in [rust](https://rustlang.org)
 
 The main reason was I was intrigued by Rust's ownership / borrow model, which allows for functional programming, without the need of making everything immutable.
